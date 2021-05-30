@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
+
 return [
 
     /*
@@ -14,7 +16,7 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => 'SIM Wakaf',
     'title_prefix' => '',
     'title_postfix' => '',
 
@@ -45,12 +47,12 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => 'Waka<b>F</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/logo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'AdminLTE',
+    'logo_img_alt' => 'Wakaf',
 
     /*
     |--------------------------------------------------------------------------
@@ -65,11 +67,11 @@ return [
     */
 
     'usermenu_enabled' => true,
-    'usermenu_header' => false,
+    'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
-    'usermenu_image' => false,
-    'usermenu_desc' => false,
-    'usermenu_profile_url' => false,
+    'usermenu_image' => true,
+    'usermenu_desc' => true,
+    'usermenu_profile_url' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -226,85 +228,58 @@ return [
     'menu' => [
         [
             'text' => 'search',
-            'search' => true,
+            'search' => false,
             'topnav' => true,
         ],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
+            'text'        => 'Dashboard',
+            'url'         => '/home',
+            'icon'        => 'fas fa-fw fa-home',
         ],
         ['header' => 'account_settings'],
         [
-            'text' => 'profile',
-            'url'  => 'admin/settings',
+            'text' => 'Ajukan Wakaf Tanah',
+            'url'  => 'wakif/ajukan-wakaf',
             'icon' => 'fas fa-fw fa-user',
+            'can'  => 'isWakif'
         ],
         [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
+            'text' => 'Pengajuan Anda',
+            'url'  => 'wakif/ajukan-wakaf',
+            'icon' => 'fas fa-fw fa-user',
+            'can'  => 'isWakif'
+        ],
+
+        [
+            'text' => 'Setujui Pengajuan Wakaf',
+            'url'  => 'wakif/ajukan-wakaf',
+            'icon' => 'fas fa-fw fa-user',
+            'can'  => 'isAdmin'
         ],
         [
-            'text'    => 'multilevel',
+            'text' => 'Pengajuan Ditolak',
+            'url'  => 'wakif/ajukan-wakaf',
+            'icon' => 'fas fa-fw fa-user',
+            'can'  => 'isAdmin'
+        ],
+        [
+            'text'    => 'Data Wakaf',
             'icon'    => 'fas fa-fw fa-share',
+            'can'     => 'isAdmin',
             'submenu' => [
                 [
-                    'text' => 'level_one',
+                    'text' => 'Survei',
                     'url'  => '#',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
+                    'text' => 'Ikrar',
+                    'url'  => '#',
                 ],
                 [
-                    'text' => 'level_one',
+                    'text' => 'Akta Ikrar',
                     'url'  => '#',
                 ],
             ],
-        ],
-        ['header' => 'labels'],
-        [
-            'text'       => 'important',
-            'icon_color' => 'red',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'warning',
-            'icon_color' => 'yellow',
-            'url'        => '#',
-        ],
-        [
-            'text'       => 'information',
-            'icon_color' => 'cyan',
-            'url'        => '#',
         ],
     ],
 

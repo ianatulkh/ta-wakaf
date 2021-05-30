@@ -3,19 +3,20 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\IdentitasWakif;
+use App\Wakif;
 use App\Status;
 
 class BerkasWakif extends Model
 {
     protected $table = 'berkas_wakif';
+
     protected $fillable = [
-        'ktp', 'selfi_ktp', 'id_wakif', 'blanko_tanah', 'id_status'
+        'id_wakif', 'ktp', 'selfi_ktp', 'blanko_tanah', 'id_status'
     ];
 
-    public function identitasWakif()
+    public function wakif()
     {
-        return $this->belongsTo(IdentitasWakif::class, 'id_wakif');
+        return $this->belongsTo(Wakif::class, 'id_wakif');
     }
 
     public function status()

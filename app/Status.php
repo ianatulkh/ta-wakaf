@@ -1,4 +1,4 @@
-s<?php
+<?php
 
 namespace App;
 
@@ -8,6 +8,8 @@ use App\BerkasWakif;
 class Status extends Model
 {
 	protected $table = 'status';
+    public $timestamps = false;
+
     protected $fillable = [
         'ket_status'
     ];

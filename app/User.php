@@ -18,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'id_role', 'email', 'password',
+        'id_role', 'name', 'email', 'password',
     ];
 
     /**
@@ -44,8 +44,32 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'id_role');
     }
 
-    public function identitasWakif()
+    public function wakif()
     {
         return $this->hasOne(Wakif::class, 'id_user');
+    }
+
+    public function hasRole($role)
+    {
+        if ($this->role()->where('nama_role', $role)->first()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function adminlte_image()
+    {
+        return 'https://picsum.photos/300/300';
+    }
+
+    public function adminlte_desc()
+    {
+        return 'That\'s a nice guy';
+    }
+
+    public function adminlte_profile_url()
+    {
+        return 'profile/username';
     }
 }

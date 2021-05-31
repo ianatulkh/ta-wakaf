@@ -1,100 +1,128 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet">
-
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
-
-            .full-height {
-                height: 100vh;
-            }
-
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
+@section('content')
+<!-- banner -->
+<section class="banner_main">
+    <div class="container">
+       <div class="row d_flex">
+          <div class="col-md-5">
+             <div class="text-bg">
+                <h1>Aplikasi<br>Wakaf Online</h1>
+                <span>Kecamatan Pulosari</span>
+                <p>Tidak perlu ke mana mana, tidak perlu menunggu antri untuk giliran dilayani, cukup isi data identitas, ikuti alur, dan upload berkas sesuai dengan persyaratan tata cara pendaftaran wakaf, pengajuan wakaf anda akan segera diproses</p>
+                <a href="{{ route('register') }}">Daftar Sekarang</a>
+             </div>
+          </div>
+          <div class="col-md-7">
+             <div class="text-img">
+                <figure><img src="{{ asset('homepage/images/utama.png') }}" /></figure>
+             </div>
+          </div>
+       </div>
+    </div>
+ </section>
+ <!-- end banner -->
+ <!-- Hosting -->
+ <div id="tentang-wakaf" class="hosting">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-12">
+             <div class="titlepage">
+                <h2>Apa itu Wakaf ?</h2>
+             </div>
+          </div>
+       </div>
+       <div class="row">
+          <div class="col-md-12">
+             <div class="web_hosting">
+                <figure><img  src="{{ asset('homepage/images/tentang-wakaf.png') }}" alt="#"/></figure>
+                <p>
+                    Berdasarkan Undang-undang nomor 41 tahun 2004 tentang Wakaf adalah perbuatan hukum wakif untuk memisahkan dan atau menyerahkan sebagian harta benda miliknya untuk dimanfaatkan selamanya dan untuk jangka waktu tertentu sesuai dengan kepentingannya guna keperluan ibadah dan atau kesejahteraan umum menurut syariah.
+                    <br><br><br>
+                    <span style="font-size: 25px">يٰٓاَيُّهَا الَّذِيْنَ اٰمَنُوْٓا اَنْفِقُوْا مِنْ طَيِّبٰتِ مَا كَسَبْتُمْ وَمِمَّآ اَخْرَجْنَا لَكُمْ مِّنَ الْاَرْضِ ۗ وَلَا تَيَمَّمُوا الْخَبِيْثَ مِنْهُ تُنْفِقُوْنَ وَلَسْتُمْ بِاٰخِذِيْهِ اِلَّآ اَنْ تُغْمِضُوْا فِيْهِ ۗ وَاعْلَمُوْٓا اَنَّ اللّٰهَ غَنِيٌّ حَمِيْدٌ - ٢٦٧</span>
+                    <br>
+                    Wahai orang-orang yang beriman! Infakkanlah sebagian dari hasil usahamu yang baik-baik dan sebagian dari apa yang Kami keluarkan dari bumi untukmu. Janganlah kamu memilih yang buruk untuk kamu keluarkan, padahal kamu sendiri tidak mau mengambilnya melainkan dengan memicingkan mata (enggan) terhadapnya. Dan ketahuilah bahwa Allah Mahakaya, Maha Terpuji.
+                </p>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- end Hosting -->
+ <!-- Services  -->
+ <div id="tatacara" class="Services">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-12">
+             <div class="titlepage">
+                <h2>Tata Cara Wakaf Online</h2>
+                <p>Ikuti alur tata cara wakaf online dari kenan hingga ke kiri sesuai nomor urutan
+                </p>
+             </div>
+          </div>
+       </div>
+       <div class="row">
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+             <div class="Services-box">
+                <i class="p-0"><img src="{{ asset('homepage/images/1.png') }}" alt="#"/></i>
+                <h3>#1 Isi Data Diri</h3>
+                <p>Isi data diri calon wakif dan isi bagian akun anda melalui link /register kemudian cek dan verifikasi Email anda </p>
+             </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+             <div class="Services-box">
+                <i class="p-0"><img src="{{ asset('homepage/images/2.png') }}" alt="#"/></i>
+                <h3>#2 Ajukan Wakaf</h3>
+                <p>Setelah masuk, Klik Ajukan wakaf untuk upload berkas persyaratan wakaf yang telah disebutkan sebelumnya</p>
+             </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+             <div class="Services-box">
+                <i class="p-0"><img src="{{ asset('homepage/images/3.png') }}" alt="#"/></i>
+                <h3>#3 Pengecekan Data</h3>
+                <p>Petugas KUA akan mengkonfirmasi selanjutnya, jika data yang diupload valid sesuai dengan persyaratan </p>
+             </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+             <div class="Services-box">
+                <i class="p-0"><img src="{{ asset('homepage/images/4.png') }}" alt="#"/></i>
+                <h3>#4 Survei Tempat</h3>
+                <p>Petugas juga akan mengirimkan notifikasi berupa email jadwal survei, dan melakukan survei sesuai jadwal</p>
+             </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+             <div class="Services-box">
+                <i class="p-0"><img src="{{ asset('homepage/images/5.png') }}" alt="#"/></i>
+                <h3>#5 Ikrar</h3>
+                <p>Petugas juga akan mengirimkan notifikasi beurpa email jadwal ikrar, dan melakukan ikrar sesuai jadwal</p>
+             </div>
+          </div>
+          <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12">
+            <div class="Services-box">
+               <i class="p-0"><img src="{{ asset('homepage/images/6.png') }}" alt="#"/></i>
+               <h3>#6 Akta Ikrar</h3>
+               <p>Petugas juga mengirimkan pemberitahuan mengenai akta ikrar yang siap untuk ditanda tangani oleh Wakif</p>
             </div>
-        </div>
-    </body>
-</html>
+         </div>
+       </div>
+    </div>
+ </div>
+ <!-- end Servicess -->
+ <!-- why -->
+ <div id="why" class="why">
+    <div class="container">
+       <div class="row">
+          <div class="col-md-12">
+             <div class="titlepage">
+                <h2>Tunggu apa lagi ?</h2>
+                <p>
+                   Jangan ragu, segera ajukan wakaf melalui aplikasi wakaf online untuk proses yang lebih mudah, terstruktur, dan tentunya tidak memakan banyak waktu
+                   selagi menunggu antrian datang. Anda hanya perlu menunggu pemberitahuan mengenai status pengajuan dari petugas selanjutnya anda akan mendapatkan akta wakaf
+                </p>
+             </div>
+          </div>
+       </div>
+    </div>
+ </div>
+ <!-- end why -->
+@endsection

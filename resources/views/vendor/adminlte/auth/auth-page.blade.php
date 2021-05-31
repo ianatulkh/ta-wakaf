@@ -18,7 +18,7 @@
 @section('body')
 <style>
     .login-box, .register-box{
-        width: 500px;
+        width: 550px;
     }
     @media (max-width: 576px){
         .login-box, .register-box {

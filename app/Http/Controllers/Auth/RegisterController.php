@@ -65,7 +65,6 @@ class RegisterController extends Controller
             'rt'                     => ['required', 'numeric', 'digits:3'],
             'rw'                     => ['required', 'numeric', 'digits:3'],
             'id_desa'                => ['required', 'numeric', 'digits:10'],
-
             'name'                   => ['required', 'string', 'max:40', 'min:3'],
             'email'                  => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password'               => ['required', 'string', 'min:8', 'confirmed'],

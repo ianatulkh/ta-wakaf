@@ -20,9 +20,10 @@ class UserSeeder extends Seeder
         $faker = Faker::create('id_ID');
 
         $id_pendidikan_terakhir = PendidikanTerakhir::all()->pluck('id')->toArray();
-        $name = $faker->name;
         
         for ($i=0; $i < 10; $i++) { 
+            $name = $faker->name;
+            
             $user = User::create([
                 'id_role' => 2,
                 'name' => $name,

@@ -169,7 +169,7 @@
         <div class="form-group">
             <label for="id_desa">Pilih Desa</label>
             <select name="id_desa" class="form-control {{ $errors->has('id_desa') ? 'is-invalid' : '' }}" autofocus>
-                <option selected="true" disabled>Pilih Pendidikan Terakhir</option>
+                <option selected="true" disabled>Pilih Desa</option>
                 @foreach ($desa as $item)
                     <option value="{{ $item->id }}" {{ (old('id_desa') ?? '') == $item->id ? 'selected':'' }}>{{ $item->nama }}</option>
                 @endforeach

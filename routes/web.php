@@ -24,10 +24,13 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::name('admin.')->prefix('admin')->middleware(['auth', 'role:Admin', 'verified'])->group(function(){
+Route::name('admin.')->prefix('admin')->middleware(['auth', 'role:Admin', 'verified'])->group(
+function(){
     Route::get('/', [HomeAdminController::class, 'index'])->name('home');    
+    Route::resource('data-wakif', Admin\WakifController::class)->parameter('data-wakif', 'wakif');
 });
 
-Route::name('wakif.')->prefix('wakif')->middleware(['auth', 'role:wakif', 'verified'])->group(function(){
+Route::name('wakif.')->prefix('wakif')->middleware(['auth', 'role:wakif', 'verified'])->group(
+function(){
     Route::get('/', [HomeWakifController::class, 'index'])->name('home');    
 });

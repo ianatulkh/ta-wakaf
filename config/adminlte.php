@@ -239,13 +239,13 @@ return [
         ['header' => 'Data Pengajuan'],
         [
             'text' => 'Ajukan Wakaf Tanah',
-            'url'  => 'wakif/ajukan-wakaf',
+            'url'  => '/wakif/pengajuan-wakaf/create',
             'icon' => 'fas fa-fw fa-user',
             'can'  => 'isWakif'
         ],
         [
             'text' => 'Pengajuan Anda',
-            'url'  => 'wakif/ajukan-wakaf',
+            'url'  => 'wakif/pengajuan-wakaf',
             'icon' => 'fas fa-fw fa-user',
             'can'  => 'isWakif'
         ],
@@ -387,6 +387,16 @@ return [
                     'type' => 'css',
                     'asset' => true,
                     'location' => 'vendor/datatables-plugins/buttons/css/buttons.bootstrap4.min.css',
+                ],
+            ],
+        ],
+        'BootstrapPlugin' => [
+            'active' => false,
+            'files' => [
+                [
+                    'type' => 'js',
+                    'asset' => true,
+                    'location' => 'vendor/bs-custom-file-input/bs-custom-file-input.min.js',
                 ],
             ],
         ],

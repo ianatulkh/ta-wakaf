@@ -25,4 +25,9 @@ class HomeController extends Controller
 
         return view('auth.login');
     }
+
+    public function welcome()
+    {
+        return view('welcome');
+    }
 }

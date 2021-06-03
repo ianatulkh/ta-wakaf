@@ -11,7 +11,7 @@ class BerkasWakif extends Model
     protected $table = 'berkas_wakif';
 
     protected $fillable = [
-        'id_wakif', 'ktp', 'selfi_ktp', 'blanko_tanah', 'id_status'
+        'id_wakif', 'sertifikat_tanah', 'surat_ukur', 'sktts', 'sppt', 'id_status'
     ];
 
     public function wakif()
@@ -22,5 +22,10 @@ class BerkasWakif extends Model
     public function status()
     {
         return $this->belongsTo(Status::class, 'id_status');
+    }
+
+    public function nadzir()
+    {
+        return $this->hasMany(Nadzir::class, 'id_berkas_wakif');
     }
 }

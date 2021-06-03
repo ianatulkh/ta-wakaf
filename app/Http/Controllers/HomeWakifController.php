@@ -8,6 +8,7 @@ class HomeWakifController extends Controller
 {
     public function index()
     {
-        return view('wakif.home');
+        $wakif = auth()->user()->wakif;
+        return view('wakif.home', compact('wakif'));
     }
 }

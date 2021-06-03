@@ -8,7 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use App\Role;
 use App\Wakif;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
 

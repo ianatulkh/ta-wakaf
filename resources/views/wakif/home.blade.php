@@ -7,7 +7,12 @@
 @stop
 
 @section('content')
-<p>Wakif</p>
+@if (count($wakif->berkasWakif ?? []) < 1)
+<div class="alert alert-danger">
+    Anda sama sekali belum membuat mengajukan wakaf, Segera membuat pengajuan wakaf baru, silahkan <a href="{{ route('wakif.pengajuan-wakaf.create') }}">klik disini</a>
+</div>
+@endif
+
 @stop
 
 @section('css')

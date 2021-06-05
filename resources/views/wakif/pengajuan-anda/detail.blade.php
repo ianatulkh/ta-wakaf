@@ -45,9 +45,45 @@
                 </tr>
                 <tr>
                     <th>Status</th>
-                    <td>{{ $berkasWakif->status->ket_status }}</td>
+                    <td>{{ $berkasWakif->status->status }}</td>
                 </tr>
             </thead>
+        </table>
+
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">Informasi Status Pengajuan Berkas</h3>
+    </div>
+
+    <div class="card-body table-responsive mr-2">
+
+        <table class="table table-borderless">
+            <thead>
+                @php 
+                    $number = 0; 
+                    $countBW = $berkasWakif->id_status -1;
+                    $column = ['ket_review_data', 'tgl_survey', 'tgl_ikrar', 'ket_akta_ikrar', 'ket_ditolak'];
+                @endphp
+
+                @foreach ($status as $item)
+                    @if ($number <= $countBW)
+                        <tr>
+                            <th width="50%">{{ $item->status  }}</th>
+                            <th width="3%">:</th>
+                            <td>{{ $desStatus->{$column[$number]} ?? 'Sedang diproses' }}</td>
+                        </tr>    
+                    @endif
+                    
+                    @php $number++; @endphp
+                @endforeach
+                
+            </thead>
+            <tbody>
+                
+            </tbody>
         </table>
 
     </div>

@@ -11,7 +11,7 @@ class Status extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'ket_status'
+        'status'
     ];
 
     public function berkasWakif()

@@ -28,4 +28,9 @@ class BerkasWakif extends Model
     {
         return $this->hasMany(Nadzir::class, 'id_berkas_wakif');
     }
+
+    public function desStatusBerkas()
+    {
+        return $this->hasOne(DesStatusBerkas::class, 'id_berkas_wakif');
+    }
 }

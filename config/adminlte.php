@@ -249,7 +249,6 @@ return [
             'icon' => 'fas fa-fw fa-user',
             'can'  => 'isWakif'
         ],
-
         [
             'text' => 'Setujui Pengajuan Wakaf',
             'url'  => 'wakif/ajukan-wakaf',
@@ -281,7 +280,10 @@ return [
                 ],
             ],
         ],
-        ['header' => 'Data Utama'],
+        [
+            'header' => 'Data Utama', 
+            'can' => 'isAdmin'
+        ],
         [
             'text' => 'Wakif',
             'url'  => 'admin/data-wakif',

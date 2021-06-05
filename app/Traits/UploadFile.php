@@ -24,6 +24,8 @@ trait UploadFile {
     public function multipleUploadFileDisk($request, $disk, $fieldname, $destination, $oldFileName = null)
     {
         if($multipleFieldFile = $request->file($fieldname)){
+
+            return "adfadsfasdfasdf.jpg";
             $fileName = [];
             
             foreach($multipleFieldFile as $idItem => $item){

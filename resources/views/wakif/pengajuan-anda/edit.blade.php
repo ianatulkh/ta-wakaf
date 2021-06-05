@@ -36,9 +36,9 @@
         <h3 class="card-title">Berkas Persyaratan Wakaf</h3>
     </div>
         
-    <form class="form-horizontal" enctype="multipart/form-data" action="{{ route('wakif.pengajuan-wakaf.store') }}" method="post">
+    <form class="form-horizontal" enctype="multipart/form-data" action="{{ route('wakif.pengajuan-wakaf.update', $berkasWakif->id) }}" method="post">
         @csrf
-        @method('POST')
+        @method('PUt')
         
         <div class="card-body">
             <div class="alert alert-warning">

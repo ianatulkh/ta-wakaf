@@ -16,10 +16,10 @@ class CreateBerkasWakifTable extends Migration
         Schema::create('berkas_wakif', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_wakif')->constrained('wakif');
-            $table->string('sertifikat_tanah', 40);
-            $table->string('surat_ukur', 40);
-            $table->string('sktts', 40);
-            $table->string('sppt', 40);
+            $table->string('sertifikat_tanah', 50);
+            $table->string('surat_ukur', 50);
+            $table->string('sktts', 50);
+            $table->string('sppt', 50);
             $table->foreignId('id_status')->constrained('status');
             $table->timestamps();
         });

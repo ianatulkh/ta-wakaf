@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Wakif;
 use App\Agama;
 use App\BerkasWakif;
 use App\Desa;
+use App\DesStatusBerkas;
 use App\Http\Controllers\Controller;
 use App\Nadzir;
 use App\PendidikanTerakhir;
+use App\Status;
 use App\Traits\UploadFile;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class PengajuanWakafController extends Controller
 {
@@ -18,15 +21,21 @@ class PengajuanWakafController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = BerkasWakif::where('id_status', 1)->latest()->get();
+            $data = BerkasWakif::latest()->get();
 
             return datatables()::of($data)
                     ->addIndexColumn()
                     ->editColumn('created_at', function($data) {
                         return $data->created_at->diffForHumans();
                     })
+                    ->editColumn('id_status', function($data) {
+                        return $data->status->status;
+                    })
                     ->editColumn('action', function($data) {
-                        return $data->id;
+                        return [
+                            'id' => $data->id,
+                            'id_status' => $data->id_status
+                        ];
                     })
                     ->make(true);
         }
@@ -94,7 +103,11 @@ class PengajuanWakafController extends Controller
                     ->make(true);
         }
 
-        return view('wakif.pengajuan-anda.detail', compact('berkasWakif'));
+        return view('wakif.pengajuan-anda.detail', [
+            'berkasWakif' => $berkasWakif,
+            'status' => Status::all(),
+            'desStatus' => DesStatusBerkas::select('ket_review_data', 'tgl_survey', 'tgl_ikrar', 'ket_akta_ikrar', 'ket_ditolak')->where('id_berkas_wakif', $berkasWakif->id)->first(),
+        ]);
     }
 
     public function edit(BerkasWakif $berkasWakif)
@@ -114,15 +127,54 @@ class PengajuanWakafController extends Controller
 
     public function update(Request $request, BerkasWakif $berkasWakif)
     {
-        //
+        $this->validator($request);
+
+        $data = (object) $request->all();
+        
+        // // UPLOAD FILE
+        $data->sertifikat_tanah = $this->uploadFileDisk($request, 'public', 'sertifikat_tanah', 'berkas/sertifikat_tanah');
+        $data->surat_ukur = $this->uploadFileDisk($request, 'public', 'surat_ukur', 'berkas/surat_ukur');
+        $data->sktts = $this->uploadFileDisk($request, 'public', 'sktts', 'berkas/sktts');
+        $data->sppt = $this->uploadFileDisk($request, 'public', 'sppt', 'berkas/sppt');
+        // $arrayKtp = $this->multipleUploadFileDisk($request, 'public', 'nadzir.*.ktp', 'berkas/ktp_nadzir');
+
+        $data = $this->filteredNull($data);
+        
+        // // SIMPAN DATA
+        $berkasWakif->update((array) $data);
+
+        $num = 0;
+        foreach($data->nadzir as $item){
+            if($item['ktp'] ?? false){
+                $this->removeFileDisk('public', 'berkas/ktp_nadzir', $berkasWakif->nadzir[$num]->ktp);
+
+                $fileName = Storage::disk('public')->put(
+                    'berkas/ktp_nadzir', $item['ktp']
+                );
+
+                $data->nadzir[$num+1]['ktp'] = basename($fileName);
+            }
+            
+            $num++;
+        }
+
+        $num = 1;
+        foreach(Nadzir::where('id_berkas_wakif', $berkasWakif->id)->get() as $item){
+            $item->update($data->nadzir[$num]);
+            $num++;
+        }
+
+        return redirect()->route('wakif.pengajuan-wakaf.index')->withSuccess('berhasil disimpan!');
     }
 
     public function destroy(BerkasWakif $berkasWakif)
     {
-        
         $nadzir = Nadzir::where('id_berkas_wakif', $berkasWakif->id);
+        
         $arrayKtp = [];
-        foreach($nadzir->get() as $item){ $arrayKtp[] = $item->ktp; }
+        foreach($nadzir->get() as $item){ 
+            $arrayKtp[] = $item->ktp; 
+        }
 
         $this->removeFileDisk('public', 'berkas/sertifikat_tanah/', $berkasWakif->sertifikat_tanah);
         $this->removeFileDisk('public', 'berkas/surat_ukur/', $berkasWakif->surat_ukur);
@@ -133,6 +185,9 @@ class PengajuanWakafController extends Controller
         //HAPUS DATA NADZIR
         $nadzir->delete();
 
+        //HAPUS DATA Des Status Berkas
+        $berkasWakif->desStatusBerkas->delete();
+
         //HAPUS DATA BERKAS WAKIF
         $berkasWakif->delete();
 
@@ -142,8 +197,7 @@ class PengajuanWakafController extends Controller
 
     public function validator(Request $request)
     {
-        // UNTUK VALIDASI FORMULIR 
-        return $this->validate($request, [
+        $validate = [
             'sertifikat_tanah'       => ['required', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'],
             'surat_ukur'             => ['required', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'],
             'sktts'                  => ['required', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'],
@@ -161,6 +215,34 @@ class PengajuanWakafController extends Controller
             'nadzir.*.rw'                     => ['required', 'numeric', 'digits:3'],
             'nadzir.*.id_desa'                => ['required', 'numeric', 'digits:10'],
             'nadzir.*.ktp'                    => ['required', 'max:1024', 'mimes:png,jpg,jpeg,gif'],
-        ]);
+        ];
+
+        if (in_array($request->method(), ['PUT', 'PATCH'])) {
+            $validate['sertifikat_tanah']       = ['nullable', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'];
+            $validate['surat_ukur']             = ['nullable', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'];
+            $validate['sktts']                  = ['nullable', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'];
+            $validate['sppt']                   = ['nullable', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'];
+            $validate['nadzir.*.ktp']           = ['nullable', 'max:1024', 'mimes:png,jpg,jpeg,gif'];
+        }
+        
+        // UNTUK VALIDASI FORMULIR 
+        return $this->validate($request, $validate);
+    }
+
+    function filteredNull($data, $except = [])
+    {
+        foreach ($data as $key => $item) {
+            if (empty($item)){
+                if ($except){
+                    if (in_array($key, $except) == null){
+                        unset($data->$key);
+                    }
+                }else {
+                    unset($data->$key);
+                }
+            }
+        }
+
+        return $data;
     }
 }

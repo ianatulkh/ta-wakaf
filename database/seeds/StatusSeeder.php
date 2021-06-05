@@ -13,16 +13,19 @@ class StatusSeeder extends Seeder
     public function run()
     {
         Status::create([
-            'ket_status' => 'Review Data', 
+            'status' => 'Review Data', 
         ]);
         Status::create([
-            'ket_status' => 'Survei', 
+            'status' => 'Survei', 
         ]);
         Status::create([
-            'ket_status' => 'Ikrar', 
+            'status' => 'Ikrar', 
         ]);
         Status::create([
-            'ket_status' => 'Akta Ikrar', 
+            'status' => 'Akta Ikrar', 
+        ]);
+        Status::create([
+            'status' => 'Ditolak', 
         ]);
     }
 }

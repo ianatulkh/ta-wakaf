@@ -32,6 +32,7 @@
                     <th> Surat Ukur </th>
                     <th> SKTTS </th>
                     <th> SPPT </th>
+                    <th> Status </th>
                     <th width="10%"> Action </th>
                 </tr>
             </thead>
@@ -80,6 +81,7 @@ $(function () {
                     let URL = '{{ Storage::disk("public")->url("berkas/sppt/:filename") }}';
                     return '<a href="'+URL.replace(':filename', data)+'" target="_blank" class="btn btn-link">Lihat File</a>';
             }},
+            {data: 'id_status', name: 'id_status'},
             {data: 'action', name: 'action', orderable: false, searchable: false,
                 render: function( data, _type, _full ) {
                     let btn = null;
@@ -87,9 +89,12 @@ $(function () {
                     let URL_EDIT = '{{ route("wakif.pengajuan-wakaf.edit", ":id") }}';
                     let URL_DESTROY = '{{ route("wakif.pengajuan-wakaf.destroy", ":id") }}';
 
-                    btn = '<a href="'+URL_SHOW.replace(':id', data)+'" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-eye"></i> Detail</a>';
-                    btn += '<a href="'+URL_EDIT.replace(':id', data)+'" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-pen"></i> Edit</a>';
-                    btn += '<button type="button" data-id="'+URL_DESTROY.replace(':id', data)+'" class="deleteBtn btn btn-outline-danger btn-sm mr-1"><i class="fas fa-trash"></i> Hapus</button>';
+                    btn = '<a href="'+URL_SHOW.replace(':id', data.id)+'" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-eye"></i> Detail</a>';
+
+                    if(data.id_status == 1){
+                        btn += '<a href="'+URL_EDIT.replace(':id', data.id)+'" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-pen"></i> Edit</a>';
+                        btn += '<button type="button" data-id="'+URL_DESTROY.replace(':id', data.id)+'" class="deleteBtn btn btn-outline-danger btn-sm mr-1"><i class="fas fa-trash"></i> Hapus</button>';
+                    }   
                     return btn;
             }},
         ]

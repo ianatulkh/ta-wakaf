@@ -28,7 +28,10 @@ class WakifController extends Controller
                         return $data->desa->nama;
                     })
                     ->editColumn('action', function($data) {
-                        return $data->id;
+                        return [
+                            'id' => $data->id,
+                            'countBerkas' => count($data->berkasWakif)
+                        ];
                     })
                     ->make(true);
         }

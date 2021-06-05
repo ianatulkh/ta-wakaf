@@ -143,20 +143,7 @@
                     @endif
                 </div>
             </div>
-
-            <div class="form-group row">
-                <label for="alamat_singkat" class="col-sm-2 col-form-label">Alamat Singkat</label>
-                <div class="col-sm-10">
-                    <input type="text" id="alamat_singkat" name="alamat_singkat" class="form-control {{ $errors->has('alamat_singkat') ? 'is-invalid' : '' }}" 
-                        placeholder="Alamat Singkat" value="{{ old('alamat_singkat') ?? $wakif->alamat_singkat }}">
-                    @if($errors->has('alamat_singkat'))
-                        <span id="alamat_singkat-error" class="invalid-feedback">
-                            <strong>{{ $errors->first('alamat_singkat') }}</strong>
-                        </span>
-                    @endif
-                </div>
-            </div>
-
+            
             <div class="form-group row">
                 <label for="rt" class="col-sm-2 col-form-label">RT</label>
                 <div class="col-sm-10">

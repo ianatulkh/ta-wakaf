@@ -126,18 +126,6 @@
             @endif
         </div>
 
-        {{-- Alamat Singkat field --}}
-        <div class="form-group">
-            <label for="alamat_singkat">Alamat Singkat</label>
-            <textarea name="alamat_singkat" id="alamat_singkat" cols="30" rows="3" 
-                      class="form-control {{ $errors->has('alamat_singkat') ? 'is-invalid' : '' }}" placeholder="Alamat Singkat">{{ old('alamat_singkat') }}</textarea>
-            @if($errors->has('alamat_singkat'))
-                <div class="invalid-feedback">
-                    <strong>{{ $errors->first('alamat_singkat') }}</strong>
-                </div>
-            @endif
-        </div>
-
 
         <div class="row">
             {{-- RT field --}}

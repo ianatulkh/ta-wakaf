@@ -16,6 +16,12 @@
     </div>
 
     <div class="card-body table-responsive mr-2">
+        <div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-info"></i> Informasi!</h5>
+            Anda hanya dapat menghapus wakif yang tidak memiliki pengajuan berkas, Anda tidak dapat menghapus wakif yang telah memiliki berkas wakaf pengajuan, karena diperuntukan untuk dokumen arsip KUA
+        </div>
+
         <table class="table table-bordered dataTable" id="table">
             <thead>
                 <tr>
@@ -65,8 +71,10 @@ $(function () {
                     let URL_EDIT = '{{ route("admin.data-wakif.edit", ":id") }}';
                     let URL_DESTROY = '{{ route("admin.data-wakif.destroy", ":id") }}';
 
-                    btn = '<a href="'+URL_EDIT.replace(':id', data)+'" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-pen"></i> Edit</a>';
-                    btn += '<button type="button" data-id="'+URL_DESTROY.replace(':id', data)+'" class="deleteBtn btn btn-outline-danger btn-sm mr-1"><i class="fas fa-trash"></i> Hapus</button>';
+                    btn = '<a href="'+URL_EDIT.replace(':id', data.id)+'" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-pen"></i> Edit</a>';
+                    if(data.countBerkas > 0){
+                        btn += '<button type="button" data-id="'+URL_DESTROY.replace(':id', data.id)+'" class="deleteBtn btn btn-outline-danger btn-sm mr-1"><i class="fas fa-trash"></i> Hapus</button>';
+                    }
                     return btn;
             }},
         ]

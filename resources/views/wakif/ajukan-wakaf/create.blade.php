@@ -35,7 +35,7 @@
     </div>
 
     <div class="card-body">
-        Untuk mengubah data anda sebagai wakif (orang yang mewakafkan tanah) yang sebelumnya telah diisi pada bagian awal yaitu bagian registrasi, silahkan ke halaman <a href="/profile">Profile Wakif</a>, sebelum klik link tersebut pastikan anda belum mengisi form dibawah ini untuk menghindari hilangnya data yang telah anda isi
+        Untuk mengubah data anda sebagai wakif (orang yang mewakafkan tanah) yang sebelumnya telah diisi pada bagian awal yaitu bagian registrasi, silahkan ke halaman <a href="/profile/username">Profile Wakif</a>, sebelum klik link tersebut pastikan anda belum mengisi form dibawah ini untuk menghindari hilangnya data yang telah anda isi
     </div>
 </div>
 

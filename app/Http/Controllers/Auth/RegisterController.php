@@ -96,7 +96,6 @@ class RegisterController extends Controller
             'id_pendidikan_terakhir' => $data['id_pendidikan_terakhir'],
             'pekerjaan'              => $data['pekerjaan'],
             'kewarganegaraan'        => $data['kewarganegaraan'],
-            'alamat_singkat'         => $data['alamat_singkat'],
             'rt'                     => $data['rt'],
             'rw'                     => $data['rw'],
             'id_desa'                => $data['id_desa'],

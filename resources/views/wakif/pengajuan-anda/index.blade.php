@@ -91,7 +91,7 @@ $(function () {
 
                     btn = '<a href="'+URL_SHOW.replace(':id', data.id)+'" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-eye"></i> Detail</a>';
 
-                    if(data.id_status == 1){
+                    if(data.id_status == 1 || data.id_status == 5){
                         btn += '<a href="'+URL_EDIT.replace(':id', data.id)+'" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-pen"></i> Edit</a>';
                         btn += '<button type="button" data-id="'+URL_DESTROY.replace(':id', data.id)+'" class="deleteBtn btn btn-outline-danger btn-sm mr-1"><i class="fas fa-trash"></i> Hapus</button>';
                     }   

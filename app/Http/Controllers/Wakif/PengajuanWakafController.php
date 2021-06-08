@@ -21,7 +21,7 @@ class PengajuanWakafController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = BerkasWakif::latest()->get();
+            $data = BerkasWakif::where('id_wakif', auth()->user()->wakif->id)->latest()->get();
 
             return datatables()::of($data)
                     ->addIndexColumn()
@@ -56,14 +56,14 @@ class PengajuanWakafController extends Controller
     {
         $this->validator($request);
 
-        // // UPLOAD FILE
+        // UPLOAD FILE
         $sertifikat_tanah = $this->uploadFileDisk($request, 'public', 'sertifikat_tanah', 'berkas/sertifikat_tanah');
         $surat_ukur = $this->uploadFileDisk($request, 'public', 'surat_ukur', 'berkas/surat_ukur');
         $sktts = $this->uploadFileDisk($request, 'public', 'sktts', 'berkas/sktts');
         $sppt = $this->uploadFileDisk($request, 'public', 'sppt', 'berkas/sppt');
         $arrayKtp = $this->multipleUploadFileDisk($request, 'public', 'nadzir.*.ktp', 'berkas/ktp_nadzir');
 
-        // // SIMPAN DATA
+        // SIMPAN DATA
         $berkasWakif = BerkasWakif::create([
             'id_wakif' => auth()->user()->wakif->id,
             'sertifikat_tanah' => $sertifikat_tanah,
@@ -106,7 +106,7 @@ class PengajuanWakafController extends Controller
         return view('wakif.pengajuan-anda.detail', [
             'berkasWakif' => $berkasWakif,
             'status' => Status::all(),
-            'desStatus' => DesStatusBerkas::select('ket_review_data', 'tgl_survey', 'tgl_ikrar', 'ket_akta_ikrar', 'ket_ditolak')->where('id_berkas_wakif', $berkasWakif->id)->first(),
+            'desStatus' => DesStatusBerkas::select('ket_review_data', 'ket_survey', 'ket_ikrar', 'ket_akta_ikrar', 'ket_ditolak')->where('id_berkas_wakif', $berkasWakif->id)->where('ket_ditolak', null)->first(),
         ]);
     }
 
@@ -136,11 +136,11 @@ class PengajuanWakafController extends Controller
         $data->surat_ukur = $this->uploadFileDisk($request, 'public', 'surat_ukur', 'berkas/surat_ukur');
         $data->sktts = $this->uploadFileDisk($request, 'public', 'sktts', 'berkas/sktts');
         $data->sppt = $this->uploadFileDisk($request, 'public', 'sppt', 'berkas/sppt');
-        // $arrayKtp = $this->multipleUploadFileDisk($request, 'public', 'nadzir.*.ktp', 'berkas/ktp_nadzir');
 
         $data = $this->filteredNull($data);
+        $data->id_status = 1;
         
-        // // SIMPAN DATA
+        // SIMPAN DATA
         $berkasWakif->update((array) $data);
 
         $num = 0;
@@ -205,6 +205,7 @@ class PengajuanWakafController extends Controller
 
             'nadzir.*.nama'                   => ['required', 'string', 'max:40', 'min:3'],
             'nadzir.*.nik'                    => ['required', 'numeric', 'digits:16'],
+            'nadzir.*.jabatan'                => ['required', 'string', 'max:30'],
             'nadzir.*.tempat_lahir'           => ['required', 'string', 'max:35', 'min:3'],
             'nadzir.*.tanggal_lahir'          => ['required', 'date'],
             'nadzir.*.id_agama'               => ['required', 'numeric', 'digits:1'],

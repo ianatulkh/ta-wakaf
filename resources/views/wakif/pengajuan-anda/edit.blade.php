@@ -136,6 +136,8 @@
                     <h6 class="mb-0 font-weight-bold"> Nadzir 1 (Ketua)</h6>
                 </div>
 
+                <input type="hidden" name="nadzir[1][jabatan]" value="Ketua">
+
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="nama0">Nama</label>
@@ -314,6 +316,8 @@
                 <div class="alert alert-dark">
                     <h6 class="mb-0 font-weight-bold"> Nadzir 2 (Sekretaris)</h6>
                 </div>
+
+                <input type="hidden" name="nadzir[2][jabatan]" value="Sekretaris">
                 
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -494,6 +498,8 @@
                     <h6 class="mb-0 font-weight-bold"> Nadzir 3 (Bendahara)</h6>
                 </div>
 
+                <input type="hidden" name="nadzir[3][jabatan]" value="Bendahara">
+
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="nama2">Nama</label>
@@ -672,6 +678,8 @@
                 <div class="alert alert-dark">
                     <h6 class="mb-0 font-weight-bold"> Nadzir 4 (Anggota)</h6>
                 </div>
+
+                <input type="hidden" name="nadzir[4][jabatan]" value="Anggota">
 
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -852,6 +860,8 @@
                     <h6 class="mb-0 font-weight-bold"> Nadzir 5 (Anggota)</h6>
                 </div>
 
+                <input type="hidden" name="nadzir[5][jabatan]" value="Anggota">
+
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="nama4">Nama</label>
@@ -1030,7 +1040,7 @@
         
         <div class="card-footer">
             <a href="{{ route('wakif.home') }}" class="btn btn-default">Kembali</a>
-            <button type="submit" class="btn btn-primary float-right">Smpan</button>
+            <button type="submit" class="btn btn-primary float-right">Ajukan Perubahan</button>
         </div>
         
     </form>

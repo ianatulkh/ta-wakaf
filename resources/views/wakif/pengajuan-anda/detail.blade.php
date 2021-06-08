@@ -65,20 +65,30 @@
                 @php 
                     $number = 0; 
                     $countBW = $berkasWakif->id_status -1;
-                    $column = ['ket_review_data', 'tgl_survey', 'tgl_ikrar', 'ket_akta_ikrar', 'ket_ditolak'];
+                    $column = ['ket_review_data', 'ket_survey', 'ket_ikrar', 'ket_akta_ikrar', 'ket_ditolak'];
                 @endphp
 
-                @foreach ($status as $item)
-                    @if ($number <= $countBW)
-                        <tr>
-                            <th width="50%">{{ $item->status  }}</th>
-                            <th width="3%">:</th>
-                            <td>{{ $desStatus->{$column[$number]} ?? 'Sedang diproses' }}</td>
-                        </tr>    
+                @foreach ($berkasWakif->desStatusBerkas as $key => $item)
+                    Pengajuan {{$key+1}} :
+                    @if ($item->ket_ditolak)
+                        Pesan {{$item->ket_ditolak}}
+                    @else
+                        @foreach ($status as $item)
+                            @if ($number <= $countBW)
+                                <tr>
+                                    <th width="50%">{{ $item->status  }}</th>
+                                    <th width="3%">:</th>
+                                    <td>{{ $desStatus->{$column[$number]} ?? 'Sedang diproses' }}</td>
+                                </tr>    
+                            @endif
+                            
+                            @php $number++; @endphp
+                        @endforeach
                     @endif
-                    
-                    @php $number++; @endphp
+                    <br><br>
                 @endforeach
+
+                
                 
             </thead>
             <tbody>

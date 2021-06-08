@@ -18,6 +18,7 @@ class CreateNadzirTable extends Migration
             $table->foreignId('id_berkas_wakif')->constrained('berkas_wakif');
             $table->string('nama', 40);
             $table->char('nik', 16);
+            $table->string('jabatan', 30);
             $table->string('tempat_lahir', 35);
             $table->date('tanggal_lahir');
             $table->char('id_agama', 1)->default(1);

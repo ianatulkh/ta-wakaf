@@ -30,6 +30,7 @@ class CreateWakifTable extends Migration
             $table->string('kecamatan')->default('Pulosari');
             $table->string('kabupaten')->default('Kab. Pemalang');
             $table->string('provinsi')->default('Jawa Tengah');
+            $table->string('ktp', 50);
             $table->timestamps();
 
             $table->foreign('id_agama')->references('id')->on('agama');

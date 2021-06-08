@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\SetujuiWakafController;
+use App\Http\Controllers\Admin\TolakWakafController;
 use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\HomeWakifController;
 use Illuminate\Support\Facades\Auth;
@@ -26,6 +28,8 @@ Route::name('admin.')->prefix('admin')->middleware(['auth', 'role:Admin', 'verif
 function(){
     Route::get('/', [HomeAdminController::class, 'index'])->name('home');    
     Route::resource('data-wakif', Admin\WakifController::class)->parameter('data-wakif', 'wakif');
+    Route::resource('setujui-wakaf', Admin\SetujuiWakafController::class)->parameter('setujui-wakaf', 'berkasWakif');
+    Route::resource('tolak-wakaf', Admin\TolakWakafController::class)->parameter('tolak-wakaf', 'berkasWakif');
 });
 
 Route::name('wakif.')->prefix('wakif')->middleware(['auth', 'role:wakif', 'verified'])->group(

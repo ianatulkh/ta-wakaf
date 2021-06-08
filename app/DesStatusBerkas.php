@@ -11,8 +11,8 @@ class DesStatusBerkas extends Model
     protected $fillable = [
         'id_berkas_wakif',
         'ket_review_data',
-        'tgl_survey',
-        'tgl_ikrar',
+        'ket_survey',
+        'ket_ikrar',
         'ket_akta_ikrar',
         'ket_ditolak',
     ];

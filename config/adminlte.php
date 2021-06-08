@@ -251,13 +251,13 @@ return [
         ],
         [
             'text' => 'Setujui Pengajuan Wakaf',
-            'url'  => 'wakif/ajukan-wakaf',
+            'url'  => 'admin/setujui-wakaf',
             'icon' => 'fas fa-fw fa-user',
             'can'  => 'isAdmin'
         ],
         [
             'text' => 'Pengajuan Ditolak',
-            'url'  => 'wakif/ajukan-wakaf',
+            'url'  => 'admin/tolak-wakaf',
             'icon' => 'fas fa-fw fa-user',
             'can'  => 'isAdmin'
         ],

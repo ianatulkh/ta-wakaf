@@ -25,7 +25,6 @@ trait UploadFile {
     {
         if($multipleFieldFile = $request->file($fieldname)){
 
-            return "adfadsfasdfasdf.jpg";
             $fileName = [];
             
             foreach($multipleFieldFile as $idItem => $item){

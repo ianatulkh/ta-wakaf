@@ -29,6 +29,7 @@ class UserSeeder extends Seeder
                 'name' => $name,
                 'email' => $faker->unique()->safeEmail,
                 'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+                'email_verified_at' => now(),
                 'remember_token' => Str::random(10),
             ]);
 
@@ -43,6 +44,7 @@ class UserSeeder extends Seeder
                 'id_desa' => $faker->randomElement(['3327020001', '3327020002', '3327020003', '3327020004', '3327020005', '3327020006', '3327020007', '3327020008', '3327020009', '3327020010', '3327020011', '3327020012' ]),
                 'rt' => $faker->numberBetween(100, 999),
                 'rw' => $faker->numberBetween(100, 999),
+                'ktp' => $faker->text(45) . '.png'
             ]);
         }
     }

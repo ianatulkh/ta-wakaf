@@ -141,6 +141,8 @@
                     <h6 class="mb-0 font-weight-bold"> Nadzir 1 (Ketua)</h6>
                 </div>
 
+                <input type="hidden" name="nadzir[1][jabatan]" value="Ketua">
+
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="nama0">Nama</label>
@@ -319,6 +321,8 @@
                 <div class="alert alert-dark">
                     <h6 class="mb-0 font-weight-bold"> Nadzir 2 (Sekretaris)</h6>
                 </div>
+
+                <input type="hidden" name="nadzir[2][jabatan]" value="Sekretaris">
                 
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -498,6 +502,8 @@
                 <div class="alert alert-dark">
                     <h6 class="mb-0 font-weight-bold"> Nadzir 3 (Bendahara)</h6>
                 </div>
+
+                <input type="hidden" name="nadzir[3][jabatan]" value="Bendahara">
 
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -683,6 +689,8 @@
                     <h6 class="mb-0 font-weight-bold"> Nadzir 4 (Anggota)</h6>
                 </div>
 
+                <input type="hidden" name="nadzir[4][jabatan]" value="Anggota">
+
                 <div class="row">
                     <div class="form-group col-md-6">
                         <label for="nama3">Nama</label>
@@ -866,6 +874,8 @@
                 <div class="alert alert-dark">
                     <h6 class="mb-0 font-weight-bold"> Nadzir 5 (Anggota)</h6>
                 </div>
+
+                <input type="hidden" name="nadzir[5][jabatan]" value="Anggota">
 
                 <div class="row">
                     <div class="form-group col-md-6">
@@ -1067,5 +1077,13 @@
     $(function () {
       bsCustomFileInput.init();
     });
+
+    $('input[type=file]').change(function() {
+        if(this.files[0].size > 1048576){
+           alert("Maksimal ukuran file yang anda upload adalah 1mb !");
+           this.value = "";
+        };
+    })
+
 </script>
 @stop

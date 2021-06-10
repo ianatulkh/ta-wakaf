@@ -12,7 +12,7 @@ class TolakWakafController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = BerkasWakif::where('id_status', 5)->latest()->get();
+            $data = BerkasWakif::where('id_status', 5)->oldest('updated_at')->get();
             
             return DataTables::of($data)
                     ->addIndexColumn()

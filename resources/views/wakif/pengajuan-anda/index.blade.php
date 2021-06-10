@@ -17,11 +17,7 @@
 
     <div class="card-body table-responsive mr-2">
 
-        @if (session()->has('success'))
-        <div class="alert alert-success mx-3 mt-3">
-            {{ session('success') }}
-        </div>
-        @endif
+        <x-alert/>
 
         <table class="table table-bordered dataTable" id="table">
             <thead>

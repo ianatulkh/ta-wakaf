@@ -268,15 +268,15 @@ return [
             'submenu' => [
                 [
                     'text' => 'Survei',
-                    'url'  => '#',
+                    'url'  => 'admin/survey',
                 ],
                 [
                     'text' => 'Ikrar',
-                    'url'  => '#',
+                    'url'  => 'admin/ikrar',
                 ],
                 [
                     'text' => 'Akta Ikrar',
-                    'url'  => '#',
+                    'url'  => 'admin/akta-ikrar',
                 ],
             ],
         ],

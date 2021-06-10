@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Admin\DataWakaf;
 
 use App\BerkasWakif;
 use App\DesStatusBerkas;
@@ -8,12 +8,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class SetujuiWakafController extends Controller
+class AktaIkrarController extends Controller
 {
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = BerkasWakif::where('id_status', 1)->oldest('updated_at')->get();
+            $data = BerkasWakif::where('id_status', 4)->oldest('updated_at')->get();
             return DataTables::of($data)
                     ->addIndexColumn()
                     ->editColumn('nama', function($data) {
@@ -28,36 +28,37 @@ class SetujuiWakafController extends Controller
                     ->editColumn('updated_at', function($data) {
                         return date_format($data->updated_at, 'd-m-Y H:m');
                     })
+                    ->editColumn('ket_akta_ikrar', function($data) {
+                        $desStatusBerkas = DesStatusBerkas::where('id_berkas_wakif', $data->id)->where('ket_ditolak', null)->first();
+                        return [
+                            'id' => $data->id,
+                            'ket_akta_ikrar' => $desStatusBerkas->ket_akta_ikrar
+                        ];
+                    })
                     ->editColumn('action', function($data) {
                         return $data->id;
                     })
                     ->make(true);
         }
-        
-        return view('admin.setujui-wakaf.index');
+    
+        return view('admin.data-wakaf.akta-ikrar');
     }
 
     public function update(Request $request, BerkasWakif $berkasWakif)
     {
+        $desStatusBerkas = DesStatusBerkas::where('id_berkas_wakif', $berkasWakif->id)->where('ket_ditolak', null)->first();
+
         // VALIDASI FORM
         $request->validate([
-            'id_status' => ['required', 'digits:1'],
             'pesan' => ['required', 'min:10']
         ]);
 
         // ARRAY UNTUK SIMPAN KETERANGAN STATUS
-        $desStatus = ['id_berkas_wakif' => $berkasWakif->id];
-        $desStatus += ($request->id_status == 5) 
-                    ? ['ket_ditolak' => $request->pesan] 
-                    : ['ket_review_data' => $request->pesan];
-         
-        $berkasWakif->update($request->all());
-        DesStatusBerkas::create($desStatus);
+        $desStatus = ['ket_akta_ikrar' => $request->pesan];
+        $desStatusBerkas->update($desStatus);
 
-        if($request->id_status == 5){
-            return redirect()->route('admin.tolak-wakaf.index')->withSuccess('Berhasil Menolak Pengajuan!');    
-        }
+        // HARUSNYA SEND EMAIL
 
-        return redirect()->route('admin.survey.index')->withSuccess('Berhasil Menyetujui Pengajuan!');
+        return redirect()->route('admin.akta-ikrar.index')->withSuccess('Berhasil Disimpan!');
     }
 }

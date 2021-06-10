@@ -63,37 +63,55 @@
         <table class="table table-borderless">
             <thead>
                 @php 
-                    $number = 0; 
-                    $countBW = $berkasWakif->id_status -1;
-                    $column = ['ket_review_data', 'ket_survey', 'ket_ikrar', 'ket_akta_ikrar', 'ket_ditolak'];
+                    $column = ['ket_review_data', 'tgl_survey', 'ket_survey', 'tgl_ikrar', 'ket_ikrar', 'ket_akta_ikrar', 'ket_ditolak'];
                 @endphp
 
-                @foreach ($berkasWakif->desStatusBerkas as $key => $item)
-                    Pengajuan {{$key+1}} :
-                    @if ($item->ket_ditolak)
-                        Pesan {{$item->ket_ditolak}}
-                    @else
-                        @foreach ($status as $item)
-                            @if ($number <= $countBW)
-                                <tr>
-                                    <th width="50%">{{ $item->status  }}</th>
-                                    <th width="3%">:</th>
-                                    <td>{{ $desStatus->{$column[$number]} ?? 'Sedang diproses' }}</td>
-                                </tr>    
-                            @endif
-                            
-                            @php $number++; @endphp
-                        @endforeach
-                    @endif
-                    <br><br>
-                @endforeach
+                @forelse ($berkasWakif->desStatusBerkas as $key => $item)
+                Pengajuan {{$key+1}} :
+                @if ($item->ket_ditolak)
+                    Pesan {{$item->ket_ditolak}}
+                @else
+                <tr>
+                    <th width="50%" class="align-text-top">Review Data</th>
+                    <th width="3%" class="align-text-top">:</th>
+                    <td>{{ $desStatus->{$column[0]} ?? 'Menunggu diproses' }}</td>
+                </tr>
+                <tr>
+                    <th width="50%" class="align-text-top">Tanggal Pelaksanaan Survey</th>
+                    <th width="3%" class="align-text-top">:</th>
+                    <td>{{ $desStatus->{$column[1]} ? date('d-m-Y H:m', strtotime($desStatus->{$column[1]})) : 'Menunggu diproses' }}</td>
+                </tr>
+                <tr>
+                    <th width="50%" class="align-text-top">Catatan Pasca Survey</th>
+                    <th width="3%" class="align-text-top">:</th>
+                    <td>{{ $desStatus->{$column[2]} ?? 'Menunggu diproses' }}</td>
+                </tr>
+                <tr>
+                    <th width="50%" class="align-text-top">Tanggal Pelaksanaan Ikrar</th>
+                    <th width="3%" class="align-text-top">:</th>
+                    <td>{{ $desStatus->{$column[3]} ? date('d-m-Y H:m', strtotime($desStatus->{$column[3]})) : 'Menunggu diproses' }}</td>
+                </tr>
+                <tr>
+                    <th width="50%" class="align-text-top">Catatan Pasca Ikrar</th>
+                    <th width="3%" class="align-text-top">:</th>
+                    <td>{{ $desStatus->{$column[4]} ?? 'Menunggu diproses' }}</td>
+                </tr>
+                <tr>
+                    <th width="50%" class="align-text-top">Pembuatan Akta Ikrar</th>
+                    <th width="3%" class="align-text-top">:</th>
+                    <td>{{ $desStatus->{$column[5]} ?? 'Menunggu diproses' }}</td>
+                </tr>
+                @endif
+                <br><br>
+                @empty
+                <tr>
+                    <th width="50%" class="align-text-top">Review Data</th>
+                    <th width="3%" class="align-text-top">:</th>
+                    <td>Menunggu diproses</td>
+                </tr>
+                @endforelse
 
-                
-                
             </thead>
-            <tbody>
-                
-            </tbody>
         </table>
 
     </div>

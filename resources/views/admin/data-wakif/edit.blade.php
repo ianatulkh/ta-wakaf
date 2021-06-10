@@ -15,17 +15,7 @@
         <h3 class="card-title">Edit Data Wakif</h3>
     </div>
 
-    @if (session()->has('success'))
-    <div class="alert alert-success mx-3 mt-3">
-        {{ session('success') }}
-    </div>
-    @endif
-
-    @if($errors->any())
-    <div class="alert alert-danger mx-3 mt-3">
-        Maaf ada kesalahan, silahkan cek isian yang anda masukan
-    </div>
-    @endif
+    <x-alert/>
 
     <form class="form-horizontal" action="{{ route('admin.data-wakif.update', $wakif->id) }}" method="post">
         @csrf

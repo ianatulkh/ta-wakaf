@@ -14,6 +14,8 @@
 
     <div class="card-body table-responsive mr-2">
 
+        <x-alert/>
+
         <table class="table table-bordered dataTable" id="table">
             <thead>
                 <tr>
@@ -55,7 +57,7 @@ $(function () {
             {data: 'updated_at', name: 'updated_at'},
             {data: 'action', name: 'action', orderable: false, searchable: false,
                 render: function( data, _type, _full ) {
-                    let URL_DETAIL = "{{ route('admin.setujui-wakaf.show', ':id') }}";
+                    let URL_DETAIL = "{{ route('admin.berkas-wakif.show', ':id') }}";
                     return '<a href="'+URL_DETAIL.replace(':id', data)+'" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-eye"></i> Lihat Berkas</a>';
             }},
         ]

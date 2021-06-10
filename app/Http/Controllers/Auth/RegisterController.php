@@ -7,10 +7,13 @@ use App\Desa;
 use App\Http\Controllers\Controller;
 use App\PendidikanTerakhir;
 use App\Providers\RouteServiceProvider;
+use App\Traits\UploadFile;
 use App\User;
 use App\Wakif;
+use Facade\FlareClient\Stacktrace\File;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -27,6 +30,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use UploadFile;
 
     /**
      * Where to redirect users after registration.
@@ -61,10 +65,10 @@ class RegisterController extends Controller
             'id_pendidikan_terakhir' => ['required', 'numeric', 'digits_between:1,2'],
             'pekerjaan'              => ['required', 'string', 'max:50', 'min:3'],
             'kewarganegaraan'        => ['required', 'string', 'max:50', 'min:3'],
-            'alamat_singkat'         => ['required', 'string', 'max:100', 'min:5'],
             'rt'                     => ['required', 'numeric', 'digits:3'],
             'rw'                     => ['required', 'numeric', 'digits:3'],
             'id_desa'                => ['required', 'numeric', 'digits:10'],
+            'ktp'                    => ['required', 'max:1024', 'mimes:png,jpg,jpeg'],
             'name'                   => ['required', 'string', 'max:40', 'min:3'],
             'email'                  => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password'               => ['required', 'string', 'min:8', 'confirmed'],
@@ -99,6 +103,7 @@ class RegisterController extends Controller
             'rt'                     => $data['rt'],
             'rw'                     => $data['rw'],
             'id_desa'                => $data['id_desa'],
+            'ktp'                    => $this->uploadFileDisk($data['ktp'], 'public', 'ktp', 'ktp_wakif'),
             'kecamatan'              => 'Pulosari',
             'kabupaten'              => 'Kab. Pemalang',
             'provinsi'               => 'Jawa Tengah',
@@ -119,5 +124,17 @@ class RegisterController extends Controller
             'agama' => Agama::all(),
             'desa' => Desa::all()
         ]);
+    }
+
+    // Ovveride
+    private function uploadFileDisk($data, $disk, $destination, $oldFileName = null)
+    {
+        $this->removeFileDisk($disk, $destination, $oldFileName);
+
+        $fileName = Storage::disk($disk)->put(
+            $destination, $data
+        );
+
+        return basename($fileName);
     }
 }

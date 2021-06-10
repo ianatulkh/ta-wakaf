@@ -12,9 +12,11 @@
 @endif
 
 @section('auth_header', __('adminlte::adminlte.register_message'))
+@section('plugins.BootstrapPlugin', true)
 
 @section('auth_body')
-    <form action="{{ $register_url }}" method="post">
+<x-alert/>
+    <form action="{{ $register_url }}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
         
         <h5 class="font-weight-bold text-primary">Identitas Pendaftar</h5>
@@ -169,6 +171,23 @@
             @endif
         </div>
 
+        {{-- KTP Bung --}}
+        <div class="form-group">
+            <label for="ktp" class="col-form-label">KTP Nadzir</label>
+            <div class="input-group">
+                <div class="custom-file">
+                    <input type="file" id="ktp" name="ktp" class="custom-file-input {{ $errors->has('ktp') ? 'is-invalid' : '' }}">
+                    <label class="custom-file-label" for="ktp">Pilih File</label></label>
+                </div>
+            </div>
+
+            @if($errors->has('ktp'))
+                <span id="ktp-error" class="invalid-feedback d-block">
+                    <strong>{{ $errors->first('ktp') }}</strong>
+                </span>
+            @endif
+        </div>
+
         {{-- Kecamatan field --}}
         <div class="form-group">
             <label for="kecamatan">Kecamatan</label>
@@ -264,6 +283,23 @@
         </button>
 
     </form>
+
+@stop
+
+@section('js')
+<script>
+    $(function () {
+      bsCustomFileInput.init();
+    });
+
+    $('input[type=file]').change(function() {
+        if(this.files[0].size > 1048576){
+           alert("Maksimal ukuran file yang anda upload adalah 1mb !");
+           this.value = "";
+        };
+    })
+
+</script>
 @stop
 
 @section('auth_footer')

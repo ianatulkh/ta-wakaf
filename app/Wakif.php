@@ -11,7 +11,7 @@ class Wakif extends Model
     protected $table = 'wakif';
     
     protected $fillable = [
-        'id_user', 'nama', 'nik', 'tempat_lahir', 'tanggal_lahir', 'id_agama', 'id_pendidikan_terakhir', 'pekerjaan', 'kewarganegaraan', 'id_desa', 'rt', 'rw', 'kecamatan', 'kabupaten', 'provinsi'
+        'id_user', 'nama', 'nik', 'tempat_lahir', 'tanggal_lahir', 'id_agama', 'id_pendidikan_terakhir', 'pekerjaan', 'kewarganegaraan', 'id_desa', 'ktp', 'rt', 'rw', 'kecamatan', 'kabupaten', 'provinsi'
     ];
 
     public function user()

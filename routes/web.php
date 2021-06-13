@@ -25,10 +25,12 @@ Route::get('/', [HomeController::class, 'welcome'])
 
 // BAGIAN UNTUK REDIRECT KE DASHBOARD USER
 Route::get('/home', [HomeController::class, 'index'])
+     ->middleware('auth')
      ->name('home');
 
 // BAGIAN EDIT PROFILE BAIK ITU WAKIF / USER
 Route::resource('profile', ProfileController::class)
+     ->middleware('auth')
      ->parameter('profile', 'user');
 
 // BAGIAN KONTROL HAK AKSES, SEBAGAI ADMIN

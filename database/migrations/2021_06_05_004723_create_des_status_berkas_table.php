@@ -16,13 +16,13 @@ class CreateDesStatusBerkasTable extends Migration
         Schema::create('des_status_berkas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('id_berkas_wakif')->constrained('berkas_wakif');
-            $table->text('ket_review_data');
-            $table->datetime('tgl_survey');
-            $table->text('ket_survey');
-            $table->daatetime('tgl_ikrar');
-            $table->text('ket_ikrar');
-            $table->text('ket_akta_ikrar');
-            $table->text('ket_ditolak');
+            $table->text('ket_review_data')->nullable();
+            $table->datetime('tgl_survey')->nullable();
+            $table->text('ket_survey')->nullable();
+            $table->dateTime('tgl_ikrar')->nullable();
+            $table->text('ket_ikrar')->nullable();
+            $table->text('ket_akta_ikrar')->nullable();
+            $table->text('ket_ditolak')->nullable();
             $table->timestamps();
         });
     }

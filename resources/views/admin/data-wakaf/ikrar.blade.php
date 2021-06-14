@@ -161,7 +161,11 @@ $(function () {
                     if(data.ket_ikrar){
                         return data.ket_ikrar;
                     } 
-                    return '<button id="btnKetIkrar" data-url="'+URL_CATATAN_IKRAR.replace(':id', data.id)+'" class="btn btn-outline-success btn-sm mr-1 mb-2"><i class="fas fa-sticky-note"></i> Catatan Ikrar </button>';
+                    if(data.tgl_ikrar){
+                        return '<button id="btnKetIkrar" data-url="'+URL_CATATAN_IKRAR.replace(':id', data.id)+'" class="btn btn-outline-success btn-sm mr-1 mb-2"><i class="fas fa-sticky-note"></i> Catatan Ikrar </button>';
+                    } else {
+                        return 'Silahkan Jadwalkan ikar dulu';
+                    }
             }},
             {data: 'action', name: 'action', orderable: false, searchable: false,
                 render: function( data, _type, _full ) {

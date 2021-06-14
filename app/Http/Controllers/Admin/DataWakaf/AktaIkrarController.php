@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin\DataWakaf;
 
+use App\Agama;
 use App\BerkasWakif;
+use App\Desa;
 use App\DesStatusBerkas;
 use App\Http\Controllers\Controller;
+use App\PendidikanTerakhir;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -32,6 +35,7 @@ class AktaIkrarController extends Controller
                         $desStatusBerkas = DesStatusBerkas::where('id_berkas_wakif', $data->id)->where('ket_ditolak', null)->first();
                         return [
                             'id' => $data->id,
+                            'akta_ikrar' => $data->aktaIkrar,
                             'ket_akta_ikrar' => $desStatusBerkas->ket_akta_ikrar
                         ];
                     })
@@ -60,5 +64,16 @@ class AktaIkrarController extends Controller
         // HARUSNYA SEND EMAIL
 
         return redirect()->route('admin.akta-ikrar.index')->withSuccess('Berhasil Disimpan!');
+    }
+
+    public function show(BerkasWakif $berkasWakif)
+    {
+        return view('admin.data-wakaf.akta-ikrar-form', [
+            'berkasWakif' => $berkasWakif,
+            'aktaIkrar' => $berkasWakif->aktaIkrar,
+            'pendidikanTerakhir' => PendidikanTerakhir::all(),
+            'agama' => Agama::all(),
+            'desa' => Desa::all()
+        ]);
     }
 }

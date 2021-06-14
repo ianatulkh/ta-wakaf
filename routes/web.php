@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CetakAktaIkrarController;
 use App\Http\Controllers\HomeAdminController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\HomeWakifController;
@@ -42,6 +43,7 @@ function(){
     Route::resource('data-wakif', Admin\WakifController::class)
          ->parameter('data-wakif', 'wakif');
     
+     // RUTE UNTUK MENU TERKAIT STATUS PENGAJUAN WAKAF
     Route::resource('setujui-wakaf', Admin\SetujuiWakafController::class)
          ->parameter('setujui-wakaf', 'berkasWakif')
          ->only('index', 'update');
@@ -49,10 +51,6 @@ function(){
     Route::resource('tolak-wakaf', Admin\TolakWakafController::class)
          ->parameter('tolak-wakaf', 'berkasWakif')
          ->only('index');
-    
-    Route::resource('berkas-wakif', Admin\BerkasWakifController::class)
-         ->parameter('berkas-wakif', 'berkasWakif')
-         ->only('show');
 
     Route::resource('survey', Admin\DataWakaf\SurveyController::class)
          ->parameter('survey', 'berkasWakif')
@@ -64,7 +62,27 @@ function(){
 
      Route::resource('akta-ikrar', Admin\DataWakaf\AktaIkrarController::class)
          ->parameter('akta-ikrar', 'berkasWakif')
-         ->only('index', 'update');
+         ->only('index', 'update', 'show');
+
+     // HALAMAN FORMULIR UPDATE UNTUK CETAK AKTA IKRAR
+     Route::resource('cetak-akta-ikrar', Admin\CetakAktaIkrarController::class)
+         ->parameter('cetak-akta-ikrar', 'aktaIkrar')
+         ->only('store', 'update');
+
+     // CETAK DOKUMEN AKTA IKRAR
+     Route::get('cetak-akta-ikrar-wt1/{berkasWakif}', [CetakAktaIkrarController::class, 'cetak_wt1'])
+         ->name('cetakWt1');
+     
+     Route::get('cetak-akta-ikrar-wt2/{berkasWakif}', [CetakAktaIkrarController::class, 'cetak_wt2'])
+         ->name('cetakWt2');
+
+     Route::get('cetak-akta-ikrar-wt4/{berkasWakif}', [CetakAktaIkrarController::class, 'cetak_wt4'])
+         ->name('cetakWt4');
+
+     // DETAIL BERKAS WAKIF UNTUK SEMUA
+     Route::resource('berkas-wakif', Admin\BerkasWakifController::class)
+         ->parameter('berkas-wakif', 'berkasWakif')
+         ->only('show');
 });
 
 // BAGIAN KONTROL HAK AKSES, SEBAGAI WAKIF (YG MENDAFTAR)

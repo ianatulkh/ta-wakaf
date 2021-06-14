@@ -164,8 +164,13 @@ $(function () {
                     let URL_CATATAN_SURVEY = "{{ route('admin.survey.update', ':id') }}";
                     if(data.ket_survey){
                         return data.ket_survey;
-                    } 
-                    return '<button id="btnKetSurvey" data-url="'+URL_CATATAN_SURVEY.replace(':id', data.id)+'" class="btn btn-outline-success btn-sm mr-1 mb-2"><i class="fas fa-sticky-note"></i> Catatan Survey </button>';
+                    }
+                    if(data.tgl_survey){
+                        return '<button id="btnKetSurvey" data-url="'+URL_CATATAN_SURVEY.replace(':id', data.id)+'" class="btn btn-outline-success btn-sm mr-1 mb-2"><i class="fas fa-sticky-note"></i> Catatan Survey </button>';
+                    } else {
+                        return 'Silahkan Jadwalkan survey dulu';
+                    }
+                    
             }},
             {data: 'action', name: 'action', orderable: false, searchable: false,
                 render: function( data, _type, _full ) {

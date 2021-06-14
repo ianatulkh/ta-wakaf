@@ -39,6 +39,7 @@ class IkrarController extends Controller
                         $desStatusBerkas = DesStatusBerkas::where('id_berkas_wakif', $data->id)->where('ket_ditolak', null)->first();
                         return [
                             'id' => $data->id,
+                            'tgl_ikrar' => $desStatusBerkas->tgl_ikrar,
                             'ket_ikrar' => $desStatusBerkas->ket_ikrar
                         ];
                     })

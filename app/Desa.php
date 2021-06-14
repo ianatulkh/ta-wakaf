@@ -16,4 +16,9 @@ class Desa extends Model
     {
         return $this->hasMany(Wakif::class, 'id_desa');
     }
+
+    public function aktaIkrar()
+    {
+        return $this->hasMany(AktaIkrar::class, 'id_desa');
+    }
 }

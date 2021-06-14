@@ -56,8 +56,7 @@
 
                     <div class="form-group">
                         <textarea name="pesan" class="form-control" cols="30" rows="10">
-Akta ikrar telah dibuat, silahkan pergi ke kantor untuk menandatanganinya ........
-                        </textarea>
+Akta ikrar telah dibuat, silahkan pergi ke kantor untuk menandatanganinya ........</textarea>
                     </div>
             </div>
             <div class="modal-footer justify-content-between">
@@ -97,12 +96,20 @@ $(function () {
                     if(data.ket_akta_ikrar){
                         return 'Selesai';
                     }
-                    return '<button id="btnKetAktaIkrar" data-url="'+URL_CATATAN_AKTA_IKRAR.replace(':id', data.id)+'" class="btn btn-outline-success btn-sm mr-1 mb-2"><i class="fas fa-sticky-note"></i> Catatan Akta Ikrar </button>';
+                    if(data.akta_ikrar){
+                        return '<button id="btnKetAktaIkrar" data-url="'+URL_CATATAN_AKTA_IKRAR.replace(':id', data.id)+'" class="btn btn-outline-success btn-sm mr-1 mb-2"><i class="fas fa-sticky-note"></i> Catatan Akta Ikrar </button>';
+                    } else {
+                        return 'Silahkan cetak akta dahulu'
+                    }
+                    
             }},
             {data: 'action', name: 'action', orderable: false, searchable: false,
                 render: function( data, _type, _full ) {
                     let URL_DETAIL = "{{ route('admin.berkas-wakif.show', ':id') }}";
-                    return '<a href="'+URL_DETAIL.replace(':id', data)+'" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-eye"></i> Lihat Berkas</a>';
+                    let PREPARE_AKTA = "{{ route('admin.akta-ikrar.show', ':id') }}";
+
+                    let btn = '<a href="'+URL_DETAIL.replace(':id', data)+'" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-eye"></i> Lihat Berkas</a>';
+                    return btn += '<a href="'+PREPARE_AKTA.replace(':id', data)+'" class="btn btn-outline-dark btn-sm mt-1 mr-1"><i class="fas fa-print"></i> Cetak Akta</a>';
             }},
         ]
     });

@@ -33,4 +33,9 @@ class BerkasWakif extends Model
     {
         return $this->hasMany(DesStatusBerkas::class, 'id_berkas_wakif');
     }
+
+    public function aktaIkrar()
+    {
+        return $this->hasOne(AktaIkrar::class, 'id_berkas_wakif');
+    }
 }

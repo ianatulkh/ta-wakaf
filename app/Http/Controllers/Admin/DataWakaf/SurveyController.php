@@ -39,6 +39,7 @@ class SurveyController extends Controller
                         $desStatusBerkas = DesStatusBerkas::where('id_berkas_wakif', $data->id)->where('ket_ditolak', null)->first();
                         return [
                             'id' => $data->id,
+                            'tgl_survey' => $desStatusBerkas->tgl_survey,
                             'ket_survey' => $desStatusBerkas->ket_survey
                         ];
                     })

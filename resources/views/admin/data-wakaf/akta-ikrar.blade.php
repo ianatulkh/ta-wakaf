@@ -56,7 +56,11 @@
 
                     <div class="form-group">
                         <textarea name="pesan" class="form-control" cols="30" rows="10">
-Akta ikrar telah dibuat, silahkan pergi ke kantor untuk menandatanganinya ........</textarea>
+Akta ikrar telah dibuat, silahkan pergi ke kantor KUA untuk menandatangani dan mengesahkan akta ikrar wakaf, selain itu anda harus membawa :
+1. Materai 6000 sebanyak 6 lembar
+2. Fotocopy KTP Wakif 3 Lembar Dilegalisir Desa
+3. Fotocopy KTP 5 orang nadzir (perorangan) masing-masing 3 lembar dilegalisir desa
+Stempel Badan Hukum dan dilampiri Akte Pendirian (Jika Yayasan)</textarea>
                     </div>
             </div>
             <div class="modal-footer justify-content-between">

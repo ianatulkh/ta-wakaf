@@ -14,8 +14,8 @@
              </div>
           </div>
           <div class="col-md-7">
-             <div class="text-img">
-                <figure><img src="{{ asset('homepage/images/utama.png') }}" /></figure>
+             <div class="text-img mt-5">
+               <center><img src="{{ asset('homepage/images/logo_kua.png') }}" style="height: 350px; width: auto"/></center>
              </div>
           </div>
        </div>

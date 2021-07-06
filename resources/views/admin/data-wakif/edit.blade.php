@@ -71,6 +71,7 @@
                             <strong>{{ $errors->first('tanggal_lahir') }}</strong>
                         </span>
                     @endif
+                    <small>Format tanggal lahir adalah bulan/hari/tahun</small>
                 </div>
             </div>
 
@@ -121,14 +122,15 @@
                 </div>
             </div>
 
+            {{-- No WA field --}}
             <div class="form-group row">
-                <label for="kewarganegaraan" class="col-sm-2 col-form-label">Kewarganegaraan</label>
+                <label for="no_wa" class="col-sm-2 col-form-label">No Handphone</label>
                 <div class="col-sm-10">
-                    <input type="text" id="kewarganegaraan" name="kewarganegaraan" class="form-control {{ $errors->has('kewarganegaraan') ? 'is-invalid' : '' }}" 
-                        placeholder="Kewarganegaraan" value="{{ old('kewarganegaraan') ?? $wakif->kewarganegaraan }}">
-                    @if($errors->has('kewarganegaraan'))
-                        <span id="kewarganegaraan-error" class="invalid-feedback">
-                            <strong>{{ $errors->first('kewarganegaraan') }}</strong>
+                    <input type="tel" id="no_wa" name="no_wa" class="form-control {{ $errors->has('no_wa') ? 'is-invalid' : '' }}" 
+                        placeholder="No Handphone" value="{{ old('no_wa') ?? $wakif->no_wa }}">
+                    @if($errors->has('no_wa'))
+                        <span id="no_wa-error" class="invalid-feedback">
+                            <strong>{{ $errors->first('no_wa') }}</strong>
                         </span>
                     @endif
                 </div>

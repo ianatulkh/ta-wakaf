@@ -50,7 +50,7 @@
                            class="form-control @error('password') is-invalid @enderror"
                            placeholder="{{ __('adminlte::adminlte.password') }}" required autofocus>
                     <div class="input-group-append">
-                        <button type="submit" class="btn">
+                        <button type="submit" class="btn loaderClick">
                             <i class="fas fa-arrow-right text-muted"></i>
                         </button>
                     </div>

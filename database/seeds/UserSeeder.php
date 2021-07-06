@@ -36,6 +36,7 @@ class UserSeeder extends Seeder
             Wakif::create([
                 'id_user' => $user->id,
                 'nama' => $name,
+                'no_wa' => '08393439'.$faker->numberBetween(100, 999),
                 'nik' => $faker->numberBetween(1000000000000000, 9999999999999999),
                 'tempat_lahir' => 'Tegal',
                 'tanggal_lahir' => $faker->date('Y-m-d'),

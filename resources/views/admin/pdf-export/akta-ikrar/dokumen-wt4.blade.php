@@ -89,7 +89,7 @@
                         <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:15.6pt;line-height:130%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:12px;line-height:130%;">Jabatan dalam nadhir sebagai</span></p>
                     </td>
                     <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                        <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:130%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:12px;line-height:130%;">: {{$item->jabatan}}</span></p>
+                        <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:130%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:12px;line-height:130%;">: {{$item->pivot->jabatan}}</span></p>
                     </td>
                 </tr>
                 <tr>
@@ -104,7 +104,7 @@
         </tbody>
     </table>
     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:140%;font-size:15px;font-family:"Calibri",sans-serif;'><span style="font-size:12px;line-height:140%;">&nbsp;</span></p>
-    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:140%;font-size:15px;font-family:"Calibri",sans-serif;text-indent:14.2pt;'><span style="font-size:12px;line-height:140%;">Sebagai Nadhir atas tanah seluas : {{$berkasWakif->aktaIkrar->luas}} yang terletak di Desa {{$berkasWakif->aktaIkrar->desa->nama}} Kecamatan {{$berkasWakif->aktaIkrar->kecamatan}} {{$berkasWakif->aktaIkrar->kabupaten}}.</span></p>
+    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:140%;font-size:15px;font-family:"Calibri",sans-serif;text-indent:14.2pt;'><span style="font-size:12px;line-height:140%;">Sebagai Nadhir atas tanah seluas : {{$berkasWakif->luas}} yang terletak di Desa {{$berkasWakif->desa->nama}} Kecamatan {{$berkasWakif->kecamatan}} {{$berkasWakif->kabupaten}}.</span></p>
     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:140%;font-size:15px;font-family:"Calibri",sans-serif;text-indent:14.2pt;'><span style="font-size:12px;line-height:140%;">Surat pengesahan ini berlaku sejak tanggal disahkan.</span></p>
     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:12px;line-height:115%;">&nbsp;</span></p>
     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style="font-size:12px;line-height:115%;">&nbsp;</span></p>
@@ -115,7 +115,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="font-size:12px;line-height:115%;">&nbsp;</span></p>
                 </td>
                 <td style="width: 228.2pt;padding: 0cm 5.4pt;height: 102.2pt;vertical-align: top;">
-                    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:33.65pt;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-indent:7.2pt;'><span style="font-size:12px;line-height:115%;">&nbsp; Disahkan &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : &nbsp; {{$berkasWakif->aktaIkrar->kecamatan}}</span></p>
+                    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:33.65pt;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-indent:7.2pt;'><span style="font-size:12px;line-height:115%;">&nbsp; Disahkan &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : &nbsp; {{$berkasWakif->kecamatan}}</span></p>
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:33.65pt;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-indent:7.2pt;'><span style="font-size:12px;line-height:115%;">&nbsp; Pada Tanggal &nbsp; &nbsp; &nbsp;: &nbsp;{{strftime('%d %B %Y', strtotime($berkasWakif->aktaIkrar->created_at))}}</span></p>
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="font-size:12px;line-height:115%;">&nbsp;</span></p>
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:center;'><span style="font-size:12px;line-height:115%;">Pejabat Pembuat Akta Ikrar Wakaf</span></p>

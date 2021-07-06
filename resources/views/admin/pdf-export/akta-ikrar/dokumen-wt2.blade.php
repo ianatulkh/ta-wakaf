@@ -205,7 +205,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:-5.25pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Status hak dan nomor</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->status_hak_nomor}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->status_hak_nomor}}</span></p>
                 </td>
             </tr>
             <tr>
@@ -213,7 +213,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:-5.25pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Atas hak dan nomor</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->atas_hak_nomor}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->atas_hak_nomor}}</span></p>
                 </td>
             </tr>
             <tr>
@@ -221,7 +221,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:-5.25pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Atas hak / surat lain</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->atas_hak_lain}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->atas_hak_lain}}</span></p>
                 </td>
             </tr>
             <tr>
@@ -237,7 +237,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:23.1pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Luas</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->luas}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->luas}}</span></p>
                 </td>
             </tr>
             <tr>
@@ -253,7 +253,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:23.1pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Timur</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->batas_timur}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->batas_timur}}</span></p>
                 </td>
             </tr>
             <tr>
@@ -261,7 +261,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:23.1pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Barat</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->batas_barat}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->batas_barat}}</span></p>
                 </td>
             </tr>
             <tr>
@@ -269,7 +269,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:23.1pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Utara</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->batas_utara}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->batas_utara}}</span></p>
                 </td>
             </tr>
             <tr>
@@ -277,7 +277,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:22.9pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Selatan</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->batas_selatan}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->batas_selatan}}</span></p>
                 </td>
             </tr>
             <tr>
@@ -293,7 +293,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:-5.25pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Desa/Kelurahan</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->desa->nama}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->desa->nama}}</span></p>
                 </td>
             </tr>
             <tr>
@@ -301,7 +301,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:-5.25pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Kecamatan</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->kecamatan}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->kecamatan}}</span></p>
                 </td>
             </tr>
             <tr>
@@ -309,7 +309,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:-5.25pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Kabupaten / Kotamadya 2)</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->kabupaten}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->kabupaten}}</span></p>
                 </td>
             </tr>
             <tr>
@@ -317,7 +317,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:-5.25pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Provinsi</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->provinsi}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->provinsi}}</span></p>
                 </td>
             </tr>
             <tr>
@@ -325,7 +325,7 @@
                     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:-5.25pt;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>Untuk keperluan 3)</span></p>
                 </td>
                 <td style="width: 255.4pt;padding: 0cm 5.4pt;vertical-align: top;">
-                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->aktaIkrar->keperluan}}</span></p>
+                    <p style='margin-top:  0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:120%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:120%;font-family:"Times New Roman",serif;'>: {{$berkasWakif->keperluan}}</span></p>
                 </td>
             </tr>
         </tbody>
@@ -482,7 +482,7 @@
         <li><span style='line-height:115%;font-family:"Times New Roman",serif;'>Lembar ketujuh untuk instansi berwenang.</span></li>
     </ol>
     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;'><span style='font-size:16px;line-height:115%;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
-    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style='font-size:16px;line-height:115%;font-family:"Times New Roman",serif;'>Pulosari, {{strftime('%d %B %Y', strtotime($berkasWakif->aktaIkrar->created_at))}}</span></p>
+    <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style='font-size:16px;line-height:115%;font-family:"Times New Roman",serif;'>Pulosari, {{strftime('%d %B %Y', strtotime($desStatusBerkasLast->tgl_ikrar))}}</span></p>
     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style='font-size:16px;line-height:115%;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style='font-size:16px;line-height:115%;font-family:"Times New Roman",serif;'>&nbsp;</span></p>
     <p style='margin-top:0cm;margin-right:0cm;margin-bottom:0cm;margin-left:0cm;line-height:115%;font-size:15px;font-family:"Calibri",sans-serif;text-align:right;'><span style='font-size:16px;line-height:115%;font-family:"Times New Roman",serif;'>&nbsp;</span></p>

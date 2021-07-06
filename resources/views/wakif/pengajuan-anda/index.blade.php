@@ -25,7 +25,6 @@
                     <th> # </th>
                     <th> Diajukan Pada</th>
                     <th> Sertifikat Tanah </th>
-                    <th> Surat Ukur </th>
                     <th> SKTTS </th>
                     <th> SPPT </th>
                     <th> Status </th>
@@ -60,11 +59,6 @@ $(function () {
             {data: 'sertifikat_tanah', name: 'sertifikat_tanah', 
                 render: function( data, _type, _full ) {
                     let URL = '{{ Storage::disk("public")->url("berkas/sertifikat_tanah/:filename") }}';
-                    return '<a href="'+URL.replace(':filename', data)+'" target="_blank" class="btn btn-link">Lihat File</a>';
-            }},
-            {data: 'surat_ukur', name: 'surat_ukur', 
-                render: function( data, _type, _full ) {
-                    let URL = '{{ Storage::disk("public")->url("berkas/surat_ukur/:filename") }}';
                     return '<a href="'+URL.replace(':filename', data)+'" target="_blank" class="btn btn-link">Lihat File</a>';
             }},
             {data: 'sktts', name: 'sktts', 

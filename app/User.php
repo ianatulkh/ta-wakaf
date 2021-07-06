@@ -6,11 +6,17 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Role;
+use App\Traits\SaveToUpper;
 use App\Wakif;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable;
+    use SaveToUpper;
+
+    protected $no_upper = [
+        'id_role', 'email', 'password',
+    ];
 
     /**
      * The attributes that are mass assignable.
@@ -60,7 +66,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function adminlte_image()
     {
-        return 'https://picsum.photos/300/300';
+        return asset('homepage/images/avatar.png');
     }
 
     public function adminlte_desc()

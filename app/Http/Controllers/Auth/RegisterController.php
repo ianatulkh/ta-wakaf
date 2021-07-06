@@ -59,19 +59,23 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'nik'                    => ['required', 'numeric', 'digits:16', 'unique:wakif,nik'],
-            'tempat_lahir'           => ['required', 'string', 'max:35', 'min:3'],
+            'tempat_lahir'           => ['required', 'string', 'max:35', 'min:3', 'regex:/^[a-zA-ZÑñ\s]+$/'],
             'tanggal_lahir'          => ['required', 'date'],
             'id_agama'               => ['required', 'numeric', 'digits:1'],
             'id_pendidikan_terakhir' => ['required', 'numeric', 'digits_between:1,2'],
-            'pekerjaan'              => ['required', 'string', 'max:50', 'min:3'],
-            'kewarganegaraan'        => ['required', 'string', 'max:50', 'min:3'],
+            'pekerjaan'              => ['required', 'string', 'max:50', 'min:3', 'regex:/^[a-zA-ZÑñ\s]+$/'],
+            'no_wa'                  => ['required', 'numeric', 'digits_between:10,15', 'regex:/(08)[0-9]/'],
             'rt'                     => ['required', 'numeric', 'digits:3'],
             'rw'                     => ['required', 'numeric', 'digits:3'],
             'id_desa'                => ['required', 'numeric', 'digits:10'],
-            'ktp'                    => ['required', 'max:1024', 'mimes:png,jpg,jpeg'],
-            'name'                   => ['required', 'string', 'max:40', 'min:3'],
+            'ktp'                    => ['required', 'max:5000', 'mimes:png,jpg,jpeg'],
+            'name'                   => ['required', 'string', 'max:40', 'min:3', 'regex:/^[a-zA-ZÑñ\s]+$/'],
             'email'                  => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'password'               => ['required', 'string', 'min:8', 'confirmed'],
+        ], [
+            'tempat_lahir.regex' => 'Isian harus berupa karakter huruf',
+            'pekerjaan.regex' => 'Isian harus berupa karakter huruf',
+            'name.regex' => 'Isian harus berupa karakter huruf'
         ]);
     }
 
@@ -99,14 +103,11 @@ class RegisterController extends Controller
             'id_agama'               => $data['id_agama'],
             'id_pendidikan_terakhir' => $data['id_pendidikan_terakhir'],
             'pekerjaan'              => $data['pekerjaan'],
-            'kewarganegaraan'        => $data['kewarganegaraan'],
+            'no_wa'                  => $data['no_wa'],
             'rt'                     => $data['rt'],
             'rw'                     => $data['rw'],
             'id_desa'                => $data['id_desa'],
             'ktp'                    => $this->uploadFileDisk($data['ktp'], 'public', 'ktp', 'ktp_wakif'),
-            'kecamatan'              => 'Pulosari',
-            'kabupaten'              => 'Kab. Pemalang',
-            'provinsi'               => 'Jawa Tengah',
         ]);
 
         return $user;

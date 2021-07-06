@@ -59,13 +59,16 @@
                         <div class="collapse navbar-collapse" id="navbarsExample04">
                            <ul class="navbar-nav mr-auto">
                               <li class="nav-item active">
-                                 <a class="nav-link" href="#">Home</a>
+                                 <a class="nav-link" href="/">Home</a>
                               </li>
                               <li class="nav-item">
                                  <a class="nav-link" href="#tentang-wakaf"> Tentang Wakaf </a>
                               </li>
                               <li class="nav-item">
                                  <a class="nav-link" href="#tatacara"> Tata Cara </a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="nav-link" href="/persyaratan"> Persyaratan </a>
                               </li>
                               <li class="nav-item">
                                  <a class="nav-link" href="{{ route('login') }}">Masuk</a>

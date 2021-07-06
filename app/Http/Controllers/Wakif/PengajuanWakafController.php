@@ -12,7 +12,6 @@ use App\PendidikanTerakhir;
 use App\Status;
 use App\Traits\UploadFile;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class PengajuanWakafController extends Controller
 {
@@ -55,54 +54,21 @@ class PengajuanWakafController extends Controller
     public function store(Request $request)
     {
         $this->validator($request);
+        $newRequest = (object) $request->all();
 
-        // UPLOAD FILE
-        $sertifikat_tanah = $this->uploadFileDisk($request, 'public', 'sertifikat_tanah', 'berkas/sertifikat_tanah');
-        $surat_ukur = $this->uploadFileDisk($request, 'public', 'surat_ukur', 'berkas/surat_ukur');
-        $sktts = $this->uploadFileDisk($request, 'public', 'sktts', 'berkas/sktts');
-        $sppt = $this->uploadFileDisk($request, 'public', 'sppt', 'berkas/sppt');
-        $arrayKtp = $this->multipleUploadFileDisk($request, 'public', 'nadzir.*.ktp', 'berkas/ktp_nadzir');
+        $newRequest->id_wakif            = auth()->user()->wakif->id;
+        $newRequest->sertifikat_tanah    = $this->uploadFileDisk($request, 'public', 'sertifikat_tanah', 'berkas/sertifikat_tanah/');
+        $newRequest->sktts               = $this->uploadFileDisk($request, 'public', 'sktts', 'berkas/sktts/');
+        $newRequest->sppt                = $this->uploadFileDisk($request, 'public', 'sppt', 'berkas/sppt/');
 
         // SIMPAN DATA
-        $berkasWakif = BerkasWakif::create([
-            'id_wakif' => auth()->user()->wakif->id,
-            'sertifikat_tanah' => $sertifikat_tanah,
-            'surat_ukur' => $surat_ukur,
-            'sktts' => $sktts,
-            'sppt' => $sppt,
-            'id_status' => 1,    
-        ]);
+        BerkasWakif::create((array) $newRequest);
 
-        $requestNadzir = (array) $request->nadzir;
-
-        for($i = 1; $i <= 5; $i++){
-            $requestNadzir[$i]['id_berkas_wakif'] = $berkasWakif->id;
-            $requestNadzir[$i]['ktp'] = $arrayKtp[$i-1];
-        }
-
-        Nadzir::insert($requestNadzir);
         return redirect()->route('wakif.pengajuan-wakaf.index')->withSuccess('berhasil disimpan!');
     }
 
-    public function show(Request $request, BerkasWakif $berkasWakif)
+    public function show(BerkasWakif $berkasWakif)
     {
-        if ($request->ajax()) {
-            $data = Nadzir::where('id_berkas_wakif', $berkasWakif->id)->latest()->get();
-
-            return datatables()::of($data)
-                    ->addIndexColumn()
-                    ->editColumn('ttl', function($data) {
-                        return $data->tempat_lahir . ', ' . $data->tanggal_lahir;
-                    })
-                    ->editColumn('pendidikan', function($data) {
-                        return $data->pendidikanTerakhir->tingkat;
-                    })
-                    ->editColumn('desa', function($data) {
-                        return $data->desa->nama;
-                    })
-                    ->make(true);
-        }
-
         return view('wakif.pengajuan-anda.detail', [
             'berkasWakif' => $berkasWakif,
             'status' => Status::all(),
@@ -114,11 +80,6 @@ class PengajuanWakafController extends Controller
     {
         return view('wakif.pengajuan-anda.edit', [
             'berkasWakif' => $berkasWakif,
-            'nadzir0' => $berkasWakif->nadzir[0],
-            'nadzir1' => $berkasWakif->nadzir[1],
-            'nadzir2' => $berkasWakif->nadzir[2],
-            'nadzir3' => $berkasWakif->nadzir[3],
-            'nadzir4' => $berkasWakif->nadzir[4],
             'agama' => Agama::all(),
             'pendidikanTerakhir' => PendidikanTerakhir::all(),
             'desa' => Desa::all()
@@ -129,66 +90,30 @@ class PengajuanWakafController extends Controller
     {
         $this->validator($request);
 
-        $data = (object) $request->all();
+        $newRequest = (object) $request->all();
         
-        // // UPLOAD FILE
-        $data->sertifikat_tanah = $this->uploadFileDisk($request, 'public', 'sertifikat_tanah', 'berkas/sertifikat_tanah');
-        $data->surat_ukur = $this->uploadFileDisk($request, 'public', 'surat_ukur', 'berkas/surat_ukur');
-        $data->sktts = $this->uploadFileDisk($request, 'public', 'sktts', 'berkas/sktts');
-        $data->sppt = $this->uploadFileDisk($request, 'public', 'sppt', 'berkas/sppt');
+        // UPLOAD FILE
+        $newRequest->sertifikat_tanah = $this->uploadFileDisk($request, 'public', 'sertifikat_tanah', 'berkas/sertifikat_tanah/', $berkasWakif->sertifikat_tanah);
+        $newRequest->sktts = $this->uploadFileDisk($request, 'public', 'sktts', 'berkas/sktts/', $berkasWakif->sktts);
+        $newRequest->sppt = $this->uploadFileDisk($request, 'public', 'sppt', 'berkas/sppt/', $berkasWakif->sppt);
 
-        $data = $this->filteredNull($data);
-        $data->id_status = 1;
+        $newRequest = $this->filteredNull($newRequest);
+        $newRequest->id_status = 1;
         
         // SIMPAN DATA
-        $berkasWakif->update((array) $data);
-
-        $num = 0;
-        foreach($data->nadzir as $item){
-            if($item['ktp'] ?? false){
-                $this->removeFileDisk('public', 'berkas/ktp_nadzir', $berkasWakif->nadzir[$num]->ktp);
-
-                $fileName = Storage::disk('public')->put(
-                    'berkas/ktp_nadzir', $item['ktp']
-                );
-
-                $data->nadzir[$num+1]['ktp'] = basename($fileName);
-            }
-            
-            $num++;
-        }
-
-        $num = 1;
-        foreach(Nadzir::where('id_berkas_wakif', $berkasWakif->id)->get() as $item){
-            $item->update($data->nadzir[$num]);
-            $num++;
-        }
+        $berkasWakif->update((array) $newRequest);
 
         return redirect()->route('wakif.pengajuan-wakaf.index')->withSuccess('berhasil disimpan!');
     }
 
     public function destroy(BerkasWakif $berkasWakif)
     {
-        $nadzir = Nadzir::where('id_berkas_wakif', $berkasWakif->id);
-        
-        $arrayKtp = [];
-        foreach($nadzir->get() as $item){ 
-            $arrayKtp[] = $item->ktp; 
-        }
-
         $this->removeFileDisk('public', 'berkas/sertifikat_tanah/', $berkasWakif->sertifikat_tanah);
-        $this->removeFileDisk('public', 'berkas/surat_ukur/', $berkasWakif->surat_ukur);
         $this->removeFileDisk('public', 'berkas/sktts/', $berkasWakif->sktts);
         $this->removeFileDisk('public', 'berkas/sppt/', $berkasWakif->sppt);
-        $this->multipleRemoveFileDisk('public', 'berkas/ktp_nadzir/', $arrayKtp);
-
-        //HAPUS DATA NADZIR
-        $nadzir->delete();
-
-        //HAPUS DATA Des Status Berkas
-        $berkasWakif->desStatusBerkas->delete();
 
         //HAPUS DATA BERKAS WAKIF
+        DesStatusBerkas::where('id_berkas_wakif', $berkasWakif->id)->delete();
         $berkasWakif->delete();
 
         // TAMPILKAN PESAN BERHASIL
@@ -198,52 +123,41 @@ class PengajuanWakafController extends Controller
     public function validator(Request $request)
     {
         $validate = [
-            'sertifikat_tanah'       => ['required', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'],
-            'surat_ukur'             => ['required', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'],
-            'sktts'                  => ['required', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'],
-            'sppt'                   => ['required', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'],
+            'sertifikat_tanah'       => ['required', 'max:10000', 'mimes:pdf'],
+            'sktts'                  => ['required', 'max:5000', 'mimes:png,jpg,jpeg'],
+            'sppt'                   => ['required', 'max:5000', 'mimes:png,jpg,jpeg'],
 
-            'nadzir.*.nama'                   => ['required', 'string', 'max:40', 'min:3'],
-            'nadzir.*.nik'                    => ['required', 'numeric', 'digits:16'],
-            'nadzir.*.jabatan'                => ['required', 'string', 'max:30'],
-            'nadzir.*.tempat_lahir'           => ['required', 'string', 'max:35', 'min:3'],
-            'nadzir.*.tanggal_lahir'          => ['required', 'date'],
-            'nadzir.*.id_agama'               => ['required', 'numeric', 'digits:1'],
-            'nadzir.*.id_pendidikan_terakhir' => ['required', 'numeric', 'digits_between:1,2'],
-            'nadzir.*.pekerjaan'              => ['required', 'string', 'max:50', 'min:3'],
-            'nadzir.*.kewarganegaraan'        => ['required', 'string', 'max:50', 'min:3'],
-            'nadzir.*.rt'                     => ['required', 'numeric', 'digits:3'],
-            'nadzir.*.rw'                     => ['required', 'numeric', 'digits:3'],
-            'nadzir.*.id_desa'                => ['required', 'numeric', 'digits:10'],
-            'nadzir.*.ktp'                    => ['required', 'max:1024', 'mimes:png,jpg,jpeg,gif'],
+            'status_hak_nomor'                => ['required', 'min:5', 'max:50'],
+            'atas_hak_nomor'                  => ['required', 'min:15', 'max:50'],
+            'atas_hak_nomor'                  => ['required', 'min:5', 'max:50'],
+            'atas_hak_lain'                   => ['nullable', 'min:3', 'max:50'],
+            'batas_timur'                     => ['required', 'min:3', 'max:50'],
+            'batas_barat'                     => ['required', 'min:3', 'max:50'],
+            'batas_utara'                     => ['required', 'min:3', 'max:50'],
+            'batas_selatan'                   => ['required', 'min:3', 'max:50'],
+            'id_desa'                         => ['required', 'numeric', 'digits:10'],
+            'rt'                              => ['required', 'numeric', 'digits:3'],
+            'rw'                              => ['required', 'numeric', 'digits:3'],
+            'nama_pewasiat'                   => ['nullable', 'string', 'max:40', 'min:3', 'regex:/^[a-zA-ZÑñ\s]+$/'],
+            'tahun_diwakafkan'                => ['nullable', 'numeric', 'digits:4', 'min:1950', 'max:'.(date('Y'))],
+            'keperluan'                       => ['required', 'min:10', 'max:100'],
         ];
 
+        if($request->nama_pewasiat != null){
+            $validate['tahun_diwakafkan']       = ['required', 'numeric', 'digits:4', 'min:1950', 'max:'.(date('Y'))];
+        } 
+
+        if($request->tahun_diwakafkan != null){
+            $validate['nama_pewasiat']          = ['required', 'string', 'max:40', 'min:3', 'regex:/^[a-zA-ZÑñ\s]+$/'];
+        } 
+
         if (in_array($request->method(), ['PUT', 'PATCH'])) {
-            $validate['sertifikat_tanah']       = ['nullable', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'];
-            $validate['surat_ukur']             = ['nullable', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'];
-            $validate['sktts']                  = ['nullable', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'];
-            $validate['sppt']                   = ['nullable', 'max:1024', 'mimes:pdf,png,jpg,jpeg,gif'];
-            $validate['nadzir.*.ktp']           = ['nullable', 'max:1024', 'mimes:png,jpg,jpeg,gif'];
+            $validate['sertifikat_tanah']       = ['nullable', 'max:10000', 'mimes:pdf'];
+            $validate['sktts']                  = ['nullable', 'max:5000', 'mimes:png,jpg,jpeg'];
+            $validate['sppt']                   = ['nullable', 'max:5000', 'mimes:png,jpg,jpeg'];
         }
         
         // UNTUK VALIDASI FORMULIR 
         return $this->validate($request, $validate);
-    }
-
-    function filteredNull($data, $except = [])
-    {
-        foreach ($data as $key => $item) {
-            if (empty($item)){
-                if ($except){
-                    if (in_array($key, $except) == null){
-                        unset($data->$key);
-                    }
-                }else {
-                    unset($data->$key);
-                }
-            }
-        }
-
-        return $data;
     }
 }

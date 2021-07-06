@@ -21,6 +21,8 @@
         
         <h5 class="font-weight-bold text-primary">Identitas Pendaftar</h5>
 
+        <p>Pendaftaran wakaf dilakukan oleh seorang wakif (orang yang ingin mewakafkan tanah wakaf), silahkan isi form dibawah ini sesuai dengan data anda sebagai seorang wakif </p>
+
         {{-- Name field --}}
         <div class="form-group">
             <label for="name">Nama</label>
@@ -68,6 +70,7 @@
                         <strong>{{ $errors->first('tanggal_lahir') }}</strong>
                     </div>
                 @endif
+                <small>Format tanggal lahir adalah bulan/hari/tahun</small>
             </div>
         </div>
 
@@ -116,14 +119,14 @@
             @endif
         </div>
 
-        {{-- Kewarganegaraan field --}}
+        {{-- No WA field --}}
         <div class="form-group">
-            <label for="kewarganegaraan">Kewarganegaraan</label>
-            <input id="kewarganegaraan" type="text" name="kewarganegaraan" class="form-control {{ $errors->has('kewarganegaraan') ? 'is-invalid' : '' }}"
-                   value="{{ old('kewarganegaraan') ?? 'Indonesia' }}" placeholder="Kewarganegaraan" autofocus>
-            @if($errors->has('kewarganegaraan'))
+            <label for="no_wa">No Handphone</label>
+            <input id="no_wa" type="tel" name="no_wa" class="form-control {{ $errors->has('no_wa') ? 'is-invalid' : '' }}"
+                   value="{{ old('no_wa') }}" placeholder="No Hp" autofocus>
+            @if($errors->has('no_wa'))
                 <div class="invalid-feedback">
-                    <strong>{{ $errors->first('kewarganegaraan') }}</strong>
+                    <strong>{{ $errors->first('no_wa') }}</strong>
                 </div>
             @endif
         </div>
@@ -134,7 +137,7 @@
             <div class="form-group col-md-6">
                 <label for="rt">RT</label>
                 <input id="rt" type="text" name="rt" class="form-control {{ $errors->has('rt') ? 'is-invalid' : '' }}"
-                       value="{{ old('rt') }}" placeholder="RT" autofocus>
+                       value="{{ old('rt') }}" placeholder="Misalnya 001" autofocus>
                 @if($errors->has('rt'))
                     <div class="invalid-feedback">
                         <strong>{{ $errors->first('rt') }}</strong>
@@ -146,7 +149,7 @@
             <div class="form-group col-md-6">
                 <label for="rw">RW</label>
                 <input id="rw" type="text" name="rw" class="form-control {{ $errors->has('rw') ? 'is-invalid' : '' }}"
-                       value="{{ old('rw') }}" placeholder="RW" autofocus>
+                       value="{{ old('rw') }}" placeholder="Misalnya 001" autofocus>
                 @if($errors->has('rw'))
                     <div class="invalid-feedback">
                         <strong>{{ $errors->first('rw') }}</strong>
@@ -186,6 +189,8 @@
                     <strong>{{ $errors->first('ktp') }}</strong>
                 </span>
             @endif
+
+            <small>Harus berupa gambar dengan tipe png, jpg, dan jpeg, serta ukuran kurang dari 5 MB</small>
         </div>
 
         {{-- Kecamatan field --}}
@@ -225,6 +230,8 @@
         </div>
 
         <h5 class="font-weight-bold text-primary">Data Akun</h5>
+
+        <p>Data akun akan digunakan untuk login (masuk) ke dalam sistem, untuk melihat status pengajuan wakaf anda atau anda dapat mengajukan tanah lain dengan akun yang anda daftarkan sekarang</p>
 
         {{-- Email field --}}
         <div class="input-group mb-3">
@@ -277,7 +284,7 @@
         </div>
 
         {{-- Register button --}}
-        <button type="submit" class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
+        <button type="submit" class="btn btn-block loaderClick {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
             <span class="fas fa-user-plus"></span>
             {{ __('adminlte::adminlte.register') }}
         </button>
@@ -293,8 +300,8 @@
     });
 
     $('input[type=file]').change(function() {
-        if(this.files[0].size > 1048576){
-           alert("Maksimal ukuran file yang anda upload adalah 1mb !");
+        if(this.files[0].size > 5048576){
+           alert("Maksimal ukuran file yang anda upload adalah 5mb !");
            this.value = "";
         };
     })

@@ -9,6 +9,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <style>
+    .loader_bg {   
+        display: none;
+        margin: 0;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1000000;
+        background: rgba(247, 247, 247, 0.719);
+        width: 100%;
+        height: 100%;
+    }
+
+    .loader {
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .loader img {
+        width: 280px;
+    }
+    </style>
+
     {{-- Custom Meta Tags --}}
     @yield('meta_tags')
 
@@ -75,6 +105,10 @@
 
 <body class="@yield('classes_body')" @yield('body_data')>
 
+    <div class="loader_bg">
+        <div class="loader"><img src="{{ asset('homepage/images/loading.gif') }}" alt="#" /></div>
+     </div>
+
     {{-- Body Content --}}
     @yield('body')
 
@@ -83,6 +117,11 @@
         <script src="{{ asset('vendor/jquery/jquery.min.js') }}"></script>
         <script src="{{ asset('vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
         <script src="{{ asset('vendor/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
+        <script>
+            $('.loaderClick').on('click', function() {
+              $('.loader_bg').show();
+            })
+        </script>
 
         {{-- Configured Scripts --}}
         @include('adminlte::plugins', ['type' => 'js'])

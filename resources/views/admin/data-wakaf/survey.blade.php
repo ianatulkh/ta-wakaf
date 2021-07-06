@@ -94,7 +94,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header bg-success">
-                <h4 class="modal-title">Pesan Untuk Atur Jadwal Survey</h4>
+                <h4 class="modal-title">Pesan Untuk Pasca Survey</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -117,7 +117,10 @@ Catatan survey lapangan tanah
 Lokasi dekat ........
 antara gedung ....... dan ........
 dekat dengan jalan raya
-luas tanah sekitar 500x500 
+luas tanah sekitar 500x500
+Tanah berhasil disurvey, dan sesuai dengan data yang anda kirim
+Silahkan tunggu jadwal selanjutnya untuk melaksanakan ikrar wakaf, dan persiapkan diri anda untuk melaksanakannya
+Terimakasih
 </textarea>
             </div>
             <div class="modal-footer justify-content-between">

@@ -4,14 +4,14 @@ namespace App\Http\Controllers\Admin;
 
 use App\AktaIkrar;
 use App\BerkasWakif;
+use App\BerkasWakifNadzir;
 use App\DesStatusBerkas;
 use App\Http\Controllers\Controller;
 use App\Nadzir;
-use App\SaksiIkrar;
+use App\Saksi;
 use App\Traits\UploadFile;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class CetakAktaIkrarController extends Controller
 {
@@ -20,21 +20,45 @@ class CetakAktaIkrarController extends Controller
     public function store(Request $request)
     {
         $this->validator($request);
+        $newRequest  = (object) $request->all();
 
-        // UPLOAD FILE
-        $arrayKtp = $this->multipleUploadFileDisk($request, 'public', 'saksi.*.ktp', 'berkas/ktp_saksi');
+        $arrJabatan = [
+            'Ketua', 
+            'Sekretaris', 
+            'Bendahara', 
+            'Anggota', 
+            'Anggota'
+        ];
 
-        // SIMPAN DATA
-        $aktaIkrar = AktaIkrar::create((array) $request->all());
+        $aktaIkrar = AktaIkrar::create((array) $newRequest);
 
-        $requestSaksi = (array) $request->saksi;
+        if($request->type_nazhir == 1){
+            // NAZHIR PERSEORANGAN
+            $arrayP = []; 
+            foreach($newRequest->nadzir_prs as $key => $item){
+                $arrayP += [$item => [
+                    'jabatan' => $arrJabatan[$key],
+                    'nama_badan_hukum_organisasi' => null,
+                    'no_akta_notaris'             => null,
+                    'sekretaris'                  => null,
+                    'bendahara'                   => null,
+                ]];
+            }
 
-        for($i = 1; $i <= 2; $i++){
-            $requestSaksi[$i]['id_akta_ikrar'] = $aktaIkrar->id;
-            $requestSaksi[$i]['ktp'] = $arrayKtp[$i-1];
+            $aktaIkrar->berkasWakif->nadzir()->sync($arrayP);
+        } else {
+            // NAZHIR BADAN HUKUM / ORGANISASI
+            $aktaIkrar->berkasWakif->nadzir()->sync([$newRequest->nadzir => [
+                'jabatan'                     => 'Ketua',
+                'nama_badan_hukum_organisasi' => $newRequest->nama_badan_hukum_organisasi,
+                'no_akta_notaris'             => $newRequest->no_akta_notaris,
+                'sekretaris'                  => $newRequest->sekretaris,
+                'bendahara'                   => $newRequest->bendahara,
+            ]]);
         }
-
-        SaksiIkrar::insert($requestSaksi);
+        
+        $aktaIkrar->berkasWakif->saksi()->sync($newRequest->saksi);
+        
         return redirect()->route('admin.akta-ikrar.show', $request->id_berkas_wakif)->withSuccess('berhasil disimpan!');
     }
 
@@ -44,44 +68,61 @@ class CetakAktaIkrarController extends Controller
         $data = (object) $request->all();
         $data = $this->filteredNull($data);
 
+        $arrJabatan = [
+            'Ketua', 
+            'Sekretaris', 
+            'Bendahara', 
+            'Anggota', 
+            'Anggota'
+        ];
+
         // SIMPAN DATA
-        $aktaIkrar->update((array) $data);
-
-        $num = 0;
-        foreach($data->saksi as $item){
-            if($item['ktp'] ?? false){
-                $this->removeFileDisk('public', 'berkas/ktp_saksi', $aktaIkrar->saksiIrar[$num]->ktp);
-
-                $fileName = Storage::disk('public')->put(
-                    'berkas/ktp_saksi', $item['ktp']
-                );
-
-                $data->saksi[$num+1]['ktp'] = basename($fileName);
+        if($request->type_nazhir == 1){
+            // NAZHIR PERSEORANGAN
+            $arrayP = []; 
+            foreach($request->nadzir_prs as $key => $item){
+                $arrayP += [$item => [
+                    'jabatan' => $arrJabatan[$key],
+                    'nama_badan_hukum_organisasi' => null,
+                    'no_akta_notaris'             => null,
+                    'sekretaris'                  => null,
+                    'bendahara'                   => null,
+                ]];
             }
-            
-            $num++;
-        }
 
-        $num = 1;
-        foreach(SaksiIkrar::where('id_akta_ikrar', $aktaIkrar->id)->get() as $item){
-            $item->update($data->saksi[$num]);
-            $num++;
+            $aktaIkrar->berkasWakif->nadzir()->sync($arrayP);
+        } else {
+            // NAZHIR BADAN HUKUM / ORGANISASI
+            $aktaIkrar->berkasWakif->nadzir()->sync([$request->nadzir => [
+                'jabatan'                     => 'Ketua',
+                'nama_badan_hukum_organisasi' => $request->nama_badan_hukum_organisasi,
+                'no_akta_notaris'             => $request->no_akta_notaris,
+                'sekretaris'                  => $request->sekretaris,
+                'bendahara'                   => $request->bendahara,
+            ]]);
         }
+        
+        $aktaIkrar->update((array) $data);
+        $aktaIkrar->berkasWakif->saksi()->sync($data->saksi);
 
         return redirect()->route('admin.akta-ikrar.show', $data->id_berkas_wakif)->withSuccess('berhasil disimpan!');
     }
 
+    /**
+     * Untuk Cetak WT (Persyaratan Pendaftaran Tanah Wakaf)
+     * 
+     */
     public function cetak_wt1(BerkasWakif $berkasWakif)
     {
-        $nadzir = Nadzir::where('jabatan', 'Ketua')->where('id_berkas_wakif', $berkasWakif->id)->first();
+        $nadzir = $berkasWakif->nadzir()->wherePivot('jabatan', 'Ketua')->first();
         $desStatusBerkasLast = DesStatusBerkas::where('ket_ditolak', null)->where('id_berkas_wakif', $berkasWakif->id)->first();
 
         $pdf = PDF::loadview('admin.pdf-export.akta-ikrar.dokumen-wt1', [
             'berkasWakif' => $berkasWakif,
             'nadzir' => $nadzir,
             'desStatusBerkasLast' => $desStatusBerkasLast,
-            'saksi1' => $berkasWakif->aktaIkrar->saksiIrar[0],
-            'saksi2' => $berkasWakif->aktaIkrar->saksiIrar[1],
+            'saksi1' => $berkasWakif->saksi()->get()[0],
+            'saksi2' => $berkasWakif->saksi()->get()[1],
         ])->setPaper('f4', 'potrait');
         
         return $pdf->download('laporan-dokumen-wt1.pdf');
@@ -89,23 +130,71 @@ class CetakAktaIkrarController extends Controller
 
     public function cetak_wt2(BerkasWakif $berkasWakif)
     {
-        $nadzir = Nadzir::where('jabatan', 'Ketua')->where('id_berkas_wakif', $berkasWakif->id)->first();
+        $nadzir = $berkasWakif->nadzir()->wherePivot('jabatan', 'Ketua')->first();
         $desStatusBerkasLast = DesStatusBerkas::where('ket_ditolak', null)->where('id_berkas_wakif', $berkasWakif->id)->first();
 
         $pdf = PDF::loadview('admin.pdf-export.akta-ikrar.dokumen-wt2', [
             'berkasWakif' => $berkasWakif,
             'nadzir' => $nadzir,
             'desStatusBerkasLast' => $desStatusBerkasLast,
-            'saksi1' => $berkasWakif->aktaIkrar->saksiIrar[0],
-            'saksi2' => $berkasWakif->aktaIkrar->saksiIrar[1],
+            'saksi1' => $berkasWakif->saksi()->get()[0],
+            'saksi2' => $berkasWakif->saksi()->get()[1],
         ])->setPaper('f4', 'potrait');
         
         return $pdf->download('laporan-dokumen-wt2.pdf');
     }
 
+    public function cetak_wt2a(BerkasWakif $berkasWakif)
+    {
+        $nadzir = $berkasWakif->nadzir()->wherePivot('jabatan', 'Ketua')->first();
+        $desStatusBerkasLast = DesStatusBerkas::where('ket_ditolak', null)->where('id_berkas_wakif', $berkasWakif->id)->first();
+
+        $pdf = PDF::loadview('admin.pdf-export.akta-ikrar.dokumen-wt2a', [
+            'berkasWakif' => $berkasWakif,
+            'nadzir' => $nadzir,
+            'desStatusBerkasLast' => $desStatusBerkasLast,
+            'saksi1' => $berkasWakif->saksi()->get()[0],
+            'saksi2' => $berkasWakif->saksi()->get()[1],
+        ])->setPaper('f4', 'potrait');
+        
+        return $pdf->download('laporan-dokumen-wt2a.pdf');
+    }
+
+    public function cetak_wt3(BerkasWakif $berkasWakif)
+    {
+        $nadzir = $berkasWakif->nadzir()->wherePivot('jabatan', 'Ketua')->first();
+        $desStatusBerkasLast = DesStatusBerkas::where('ket_ditolak', null)->where('id_berkas_wakif', $berkasWakif->id)->first();
+
+        $pdf = PDF::loadview('admin.pdf-export.akta-ikrar.dokumen-wt3', [
+            'berkasWakif' => $berkasWakif,
+            'nadzir' => $nadzir,
+            'desStatusBerkasLast' => $desStatusBerkasLast,
+            'saksi1' => $berkasWakif->saksi()->get()[0],
+            'saksi2' => $berkasWakif->saksi()->get()[1],
+        ])->setPaper('f4', 'potrait');
+        
+        return $pdf->download('laporan-dokumen-wt3.pdf');
+    }
+
+    public function cetak_wt3a(BerkasWakif $berkasWakif)
+    {
+        $nadzir = $berkasWakif->nadzir()->wherePivot('jabatan', 'Ketua')->first();
+        $desStatusBerkasLast = DesStatusBerkas::where('ket_ditolak', null)->where('id_berkas_wakif', $berkasWakif->id)->first();
+
+        $pdf = PDF::loadview('admin.pdf-export.akta-ikrar.dokumen-wt3a', [
+            'berkasWakif' => $berkasWakif,
+            'nadzir' => $nadzir,
+            'desStatusBerkasLast' => $desStatusBerkasLast,
+            'saksi1' => $berkasWakif->saksi()->get()[0],
+            'saksi2' => $berkasWakif->saksi()->get()[1],
+        ])->setPaper('f4', 'potrait');
+        
+        return $pdf->download('laporan-dokumen-wt3a.pdf');
+    }
+
     public function cetak_wt4(BerkasWakif $berkasWakif)
     {
-        $nadzir = Nadzir::where('id_berkas_wakif', $berkasWakif->id)->get();
+        $nadzir = $berkasWakif->nadzir()->get();
         $desStatusBerkasLast = DesStatusBerkas::where('ket_ditolak', null)->where('id_berkas_wakif', $berkasWakif->id)->first();
 
         $pdf = PDF::loadview('admin.pdf-export.akta-ikrar.dokumen-wt4', [
@@ -117,61 +206,70 @@ class CetakAktaIkrarController extends Controller
         return $pdf->download('laporan-dokumen-wt2.pdf');
     }
 
+    public function cetak_wt4a(BerkasWakif $berkasWakif)
+    {
+        $nadzir = $berkasWakif->nadzir()->first();
+        $desStatusBerkasLast = DesStatusBerkas::where('ket_ditolak', null)->where('id_berkas_wakif', $berkasWakif->id)->first();
+
+        $pdf = PDF::loadview('admin.pdf-export.akta-ikrar.dokumen-wt4a', [
+            'berkasWakif' => $berkasWakif,
+            'desStatusBerkasLast' => $desStatusBerkasLast,
+            'nadzir' => $nadzir->pivot,
+        ])->setPaper('f4', 'potrait');
+        
+        return $pdf->download('laporan-dokumen-wt4a.pdf');
+    }
+
+    public function cetak_wtk(BerkasWakif $berkasWakif)
+    {
+        $desStatusBerkasLast = DesStatusBerkas::where('ket_ditolak', null)->where('id_berkas_wakif', $berkasWakif->id)->first();
+
+        $pdf = PDF::loadview('admin.pdf-export.akta-ikrar.dokumen-wtk', [
+            'berkasWakif' => $berkasWakif,
+            'desStatusBerkasLast' => $desStatusBerkasLast,
+        ])->setPaper('f4', 'potrait');
+        
+        return $pdf->download('laporan-dokumen-wtk.pdf');
+    }
+
     public function validator(Request $request)
     {
         $validate = [
-            'wakif_jabatan'                   => ['required'],
-            'wakif_bertindak'                 => ['required'],
-            'nadzir_jabatan'                  => ['required'],
-            'nadzir_bertindak'                => ['required'],
-
-            'status_hak_nomor'                => ['required'],
-            'atas_hak_nomor'                  => ['required'],
-            'atas_hak_nomor'                  => ['required'],
-            'atas_hak_lain'                   => ['required'],
-            'batas_timur'                     => ['required'],
-            'batas_barat'                     => ['required'],
-            'batas_utara'                     => ['required'],
-            'batas_selatan'                   => ['required'],
-            'id_desa'                         => ['required', 'numeric', 'digits:10'],
-            'keperluan'                       => ['required'],
-
-            'saksi.*.nama'                   => ['required', 'string', 'max:40', 'min:3'],
-            'saksi.*.nik'                    => ['required', 'numeric', 'digits:16'],
-            'saksi.*.tempat_lahir'           => ['required', 'string', 'max:35', 'min:3'],
-            'saksi.*.tanggal_lahir'          => ['required', 'date'],
-            'saksi.*.id_agama'               => ['required', 'numeric', 'digits:1'],
-            'saksi.*.id_pendidikan_terakhir' => ['required', 'numeric', 'digits_between:1,2'],
-            'saksi.*.pekerjaan'              => ['required', 'string', 'max:50', 'min:3'],
-            'saksi.*.kewarganegaraan'        => ['required', 'string', 'max:50', 'min:3'],
-            'saksi.*.rt'                     => ['required', 'numeric', 'digits:3'],
-            'saksi.*.rw'                     => ['required', 'numeric', 'digits:3'],
-            'saksi.*.id_desa'                => ['required', 'numeric', 'digits:10'],
-            'saksi.*.ktp'                    => ['required', 'max:1024', 'mimes:png,jpg,jpeg,gif'],
+            'wakif_jabatan'                   => ['nullable', 'regex:/^[a-zA-ZÑñ\s]+$/', 'max:50', 'min:5'],
+            'wakif_bertindak'                 => ['required', 'regex:/^[a-zA-ZÑñ\s]+$/', 'max:50', 'min:5'],
+            'nadzir_jabatan'                  => ['nullable', 'regex:/^[a-zA-ZÑñ\s]+$/', 'max:50', 'min:5'],
+            'nadzir_bertindak'                => ['required', 'regex:/^[a-zA-ZÑñ\s]+$/', 'max:50', 'min:5'],
+            'nomor'                           => ['required', 'max:50', 'min:10'],
+            'nomor_wtk'                       => ['required', 'max:50', 'min:10'],
+            'saksi'                           => ['required', 'array', 'min:2'],
         ];
 
-        if (in_array($request->method(), ['PUT', 'PATCH'])) {
-            $validate['saksi.*.ktp']           = ['nullable', 'max:1024', 'mimes:png,jpg,jpeg,gif'];
+        if($request->type_nazhir == 2){
+            $validate['nama_badan_hukum_organisasi'] = ['required', 'max:50', 'min:10'];
+            $validate['no_akta_notaris']             = ['required', 'max:50', 'min:5'];
+            $validate['sekretaris']                  = ['required', 'max:40', 'min:3', 'regex:/^[a-zA-ZÑñ\s]+$/'];
+            $validate['bendahara']                   = ['required', 'max:40', 'min:3', 'regex:/^[a-zA-ZÑñ\s]+$/'];
+            $validate['nadzir']                      = ['required', 'numeric'];
+        } else{
+            $validate['nadzir_prs']                  = ['required', 'array', 'min:5'];
         }
         
         // UNTUK VALIDASI FORMULIR 
-        return $this->validate($request, $validate);
+        return $this->validate($request, $validate, [
+            'wakif_jabatan.regex' => 'Isian harus berupa karakter huruf',
+            'wakif_bertindak.regex' => 'Isian harus berupa karakter huruf',
+            'nadzir_jabatan.regex' => 'Isian harus berupa karakter huruf',
+            'nadzir_bertindak.regex' => 'Isian harus berupa karakter huruf',
+            'sekretaris.regex' => 'Isian harus berupa karakter huruf',
+            'bendahara.regex' => 'Isian harus berupa karakter huruf',
+        ]);
     }
 
-    function filteredNull($data, $except = [])
+    public function getSaksi(Request $request)
     {
-        foreach ($data as $key => $item) {
-            if (empty($item)){
-                if ($except){
-                    if (in_array($key, $except) == null){
-                        unset($data->$key);
-                    }
-                }else {
-                    unset($data->$key);
-                }
-            }
-        }
+        $data = Saksi::where('nik', 'like', '%' . ($request->get('q') ?? '') . '%')
+                        ->orWhere('nama', 'like', '%' . ($request->get('q') ?? '') . '%');
 
-        return $data;
+        return response()->json($data->limit(10)->get());
     }
 }

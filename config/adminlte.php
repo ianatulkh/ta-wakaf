@@ -240,30 +240,30 @@ return [
         [
             'text' => 'Ajukan Wakaf Tanah',
             'url'  => '/wakif/pengajuan-wakaf/create',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-share-square',
             'can'  => 'isWakif'
         ],
         [
             'text' => 'Pengajuan Anda',
             'url'  => 'wakif/pengajuan-wakaf',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-clock',
             'can'  => 'isWakif'
         ],
         [
             'text' => 'Setujui Pengajuan Wakaf',
             'url'  => 'admin/setujui-wakaf',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-user-clock',
             'can'  => 'isAdmin'
         ],
         [
             'text' => 'Pengajuan Ditolak',
             'url'  => 'admin/tolak-wakaf',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-user-times',
             'can'  => 'isAdmin'
         ],
         [
             'text'    => 'Data Wakaf',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon'    => 'fas fa-server',
             'can'     => 'isAdmin',
             'submenu' => [
                 [
@@ -287,7 +287,19 @@ return [
         [
             'text' => 'Wakif',
             'url'  => 'admin/data-wakif',
-            'icon' => 'fas fa-fw fa-user',
+            'icon' => 'fas fa-users',
+            'can'  => 'isAdmin'
+        ],
+        [
+            'text' => 'Nadzir',
+            'url'  => 'admin/data-nadzir',
+            'icon' => 'fas fa-users',
+            'can'  => 'isAdmin'
+        ],
+        [
+            'text' => 'Saksi',
+            'url'  => 'admin/data-saksi',
+            'icon' => 'fas fa-users',
             'can'  => 'isAdmin'
         ],
     ],
@@ -407,13 +419,18 @@ return [
             'files' => [
                 [
                     'type' => 'js',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js',
+                    'asset' => true,
+                    'location' => 'vendor/select2/js/select2.full.min.js',
                 ],
                 [
                     'type' => 'css',
-                    'asset' => false,
-                    'location' => '//cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css',
+                    'asset' => true,
+                    'location' => 'vendor/select2/css/select2.min.css',
+                ],
+                [
+                    'type' => 'css',
+                    'asset' => true,
+                    'location' => 'vendor/select2-bootstrap4-theme/select2-bootstrap4.min.css',
                 ],
             ],
         ],

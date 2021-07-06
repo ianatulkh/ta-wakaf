@@ -14,13 +14,24 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-3">
+
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
   
           <!-- Profile Image -->
           <div class="card card-primary card-outline">
             <div class="card-body box-profile">
 
                 <div class="text-center">
-                    <img class="profile-user-img img-fluid img-circle" src="https://picsum.photos/300/300" alt="User profile picture">
+                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('homepage/images/avatar.png') }}" alt="User profile picture">
                   </div>
   
                 <h3 class="profile-username text-center">{{ $user->name }}</h3>
@@ -166,6 +177,7 @@
                                             <strong>{{ $errors->first('tanggal_lahir') }}</strong>
                                         </div>
                                     @endif
+                                    <small>Format tanggal lahir adalah bulan/hari/tahun</small>
                                 </div>
                             </div>
 
@@ -214,14 +226,14 @@
                                 @endif
                             </div>
 
-                            {{-- Kewarganegaraan field --}}
+                            {{-- No WA field --}}
                             <div class="form-group">
-                                <label for="kewarganegaraan">Kewarganegaraan</label>
-                                <input id="kewarganegaraan" type="text" name="kewarganegaraan" class="form-control {{ $errors->has('kewarganegaraan') ? 'is-invalid' : '' }}"
-                                    value="{{ old('kewarganegaraan') ?? $user->wakif->kewarganegaraan ?? 'Indonesia' }}" placeholder="Kewarganegaraan" autofocus>
-                                @if($errors->has('kewarganegaraan'))
+                                <label for="no_wa">No Handphone</label>
+                                <input id="no_wa" type="tel" name="no_wa" class="form-control {{ $errors->has('no_wa') ? 'is-invalid' : '' }}"
+                                       value="{{ old('no_wa') ?? $user->wakif->no_wa }}" placeholder="No WA" autofocus>
+                                @if($errors->has('no_wa'))
                                     <div class="invalid-feedback">
-                                        <strong>{{ $errors->first('kewarganegaraan') }}</strong>
+                                        <strong>{{ $errors->first('no_wa') }}</strong>
                                     </div>
                                 @endif
                             </div>

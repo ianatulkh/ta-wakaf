@@ -26,7 +26,7 @@ class SetujuiWakafController extends Controller
                         return $data->wakif->desa->nama;
                     })
                     ->editColumn('updated_at', function($data) {
-                        return date_format($data->updated_at, 'd-m-Y H:m');
+                        return date_format($data->updated_at, 'd-m-Y H:i');
                     })
                     ->editColumn('action', function($data) {
                         return $data->id;

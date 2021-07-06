@@ -26,13 +26,13 @@ class SurveyController extends Controller
                         return $data->wakif->desa->nama;
                     })
                     ->editColumn('updated_at', function($data) {
-                        return date_format($data->updated_at, 'd-m-Y H:m');
+                        return date_format($data->updated_at, 'd-m-Y H:i');
                     })
                     ->editColumn('tgl_survey', function($data) {
                         $desStatusBerkas = DesStatusBerkas::where('id_berkas_wakif', $data->id)->where('ket_ditolak', null)->first();
                         return [
                             'id' => $data->id,
-                            'tgl_survey' => $desStatusBerkas->tgl_survey ? date('d-m-Y H:m', strtotime($desStatusBerkas->tgl_survey)):null
+                            'tgl_survey' => $desStatusBerkas->tgl_survey ? date('d-m-Y H:i', strtotime($desStatusBerkas->tgl_survey)):null
                         ];
                     })
                     ->editColumn('ket_survey', function($data) {

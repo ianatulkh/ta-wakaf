@@ -24,6 +24,8 @@
     <form action="{{ $login_url }}" method="post">
         {{ csrf_field() }}
 
+        <p>Anda harus login terlebih dahulu, <a href="/">klik disini</a> untuk kembali ke halaman utama</p>
+
         {{-- Email field --}}
         <div class="input-group mb-3">
             <input type="email" name="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
@@ -65,7 +67,7 @@
                 </div>
             </div>
             <div class="col-5">
-                <button type=submit class="btn btn-block {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
+                <button type=submit class="btn btn-block loaderClick {{ config('adminlte.classes_auth_btn', 'btn-flat btn-primary') }}">
                     <span class="fas fa-sign-in-alt"></span>
                     {{ __('adminlte::adminlte.sign_in') }}
                 </button>

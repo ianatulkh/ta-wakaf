@@ -26,13 +26,13 @@ class IkrarController extends Controller
                         return $data->wakif->desa->nama;
                     })
                     ->editColumn('updated_at', function($data) {
-                        return date_format($data->updated_at, 'd-m-Y H:m');
+                        return date_format($data->updated_at, 'd-m-Y H:i');
                     })
                     ->editColumn('tgl_ikrar', function($data) {
                         $desStatusBerkas = DesStatusBerkas::where('id_berkas_wakif', $data->id)->where('ket_ditolak', null)->first();
                         return [
                             'id' => $data->id,
-                            'tgl_ikrar' => $desStatusBerkas->tgl_ikrar ? date('d-m-Y H:m', strtotime($desStatusBerkas->tgl_ikrar)):null
+                            'tgl_ikrar' => $desStatusBerkas->tgl_ikrar ? date('d-m-Y H:i', strtotime($desStatusBerkas->tgl_ikrar)):null
                         ];
                     })
                     ->editColumn('ket_ikrar', function($data) {

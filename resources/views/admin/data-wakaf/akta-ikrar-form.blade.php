@@ -107,6 +107,7 @@
             </div>
             <p>Anda bisa menambahkan 2 saksi pada pencarian dibawah ini, Jika identitas saksi belum ada, anda bisa menambahkannya di <a href="{{ route('admin.data-saksi.create') }}">Halaman ini</a></p>
             <div class="form-group">
+                <label for="">Saksi</label>
                 <select name="saksi[]" class="fetch_saksi form-control select2bs4 ml-3 {{$errors->has('saksi')?'is-invalid':''}}" style="width: 100%;" multiple data-placeholder="Cari Saksi">
                     @if ($berkasWakif)
                         @foreach($berkasWakif->saksi as $key => $item)                                   
@@ -229,6 +230,7 @@
         </form>
 
         {{-- BUTTON UNTUK CETAK --}}
+        <br><br>
         <div class="mt-5">
             <h6>Simpan data cetak terlebih dahulu untuk dapat mencetak dokumen dibawah ini</h6>
             <a href="{{ route('admin.cetakWt1', $berkasWakif->id) }}" target="_blank" class="mb-2 mr-2 btn btn-success {{($aktaIkrar) ?? 'disabled' }}" {{($aktaIkrar) ?? 'disabled' }}>

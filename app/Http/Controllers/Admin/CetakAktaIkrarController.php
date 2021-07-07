@@ -59,7 +59,7 @@ class CetakAktaIkrarController extends Controller
         
         $aktaIkrar->berkasWakif->saksi()->sync($newRequest->saksi);
         
-        return redirect()->route('admin.akta-ikrar.show', $request->id_berkas_wakif)->withSuccess('berhasil disimpan!');
+        return redirect()->route('admin.akta-ikrar.show', $request->id_berkas_wakif)->withSuccess('Berhasil Disimpan !');
     }
 
     public function update(Request $request, AktaIkrar $aktaIkrar)
@@ -105,7 +105,7 @@ class CetakAktaIkrarController extends Controller
         $aktaIkrar->update((array) $data);
         $aktaIkrar->berkasWakif->saksi()->sync($data->saksi);
 
-        return redirect()->route('admin.akta-ikrar.show', $data->id_berkas_wakif)->withSuccess('berhasil disimpan!');
+        return redirect()->route('admin.akta-ikrar.show', $data->id_berkas_wakif)->withSuccess('Berhasil Disimpan !');
     }
 
     /**

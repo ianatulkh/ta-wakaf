@@ -8,9 +8,11 @@ use App\Desa;
 use App\DesStatusBerkas;
 use App\Http\Controllers\Controller;
 use App\Nadzir;
+use App\Notifications\SendNewRegistToAdmin;
 use App\PendidikanTerakhir;
 use App\Status;
 use App\Traits\UploadFile;
+use App\User;
 use Illuminate\Http\Request;
 
 class PengajuanWakafController extends Controller
@@ -64,7 +66,10 @@ class PengajuanWakafController extends Controller
         // SIMPAN DATA
         BerkasWakif::create((array) $newRequest);
 
-        return redirect()->route('wakif.pengajuan-wakaf.index')->withSuccess('berhasil disimpan!');
+        // SEND EMAIL KE ADMIN MENGENAI PENGAJUAN BARU
+        User::where('id_role', 1)->first()->notify(new SendNewRegistToAdmin);
+
+        return redirect()->route('wakif.pengajuan-wakaf.index')->withSuccess('Berhasil Disimpan !');
     }
 
     public function show(BerkasWakif $berkasWakif)
@@ -103,7 +108,7 @@ class PengajuanWakafController extends Controller
         // SIMPAN DATA
         $berkasWakif->update((array) $newRequest);
 
-        return redirect()->route('wakif.pengajuan-wakaf.index')->withSuccess('berhasil disimpan!');
+        return redirect()->route('wakif.pengajuan-wakaf.index')->withSuccess('Berhasil Disimpan !');
     }
 
     public function destroy(BerkasWakif $berkasWakif)

@@ -7,7 +7,9 @@ use App\BerkasWakif;
 use App\Desa;
 use App\DesStatusBerkas;
 use App\Http\Controllers\Controller;
+use App\Notifications\SendFinishAktaIkrar;
 use App\PendidikanTerakhir;
+use App\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -61,9 +63,10 @@ class AktaIkrarController extends Controller
         $desStatus = ['ket_akta_ikrar' => $request->pesan];
         $desStatusBerkas->update($desStatus);
 
-        // HARUSNYA SEND EMAIL
+        // SEND EMAIL
+        User::find($berkasWakif->wakif->id_user)->notify(new SendFinishAktaIkrar($berkasWakif, $request->pesan));
 
-        return redirect()->route('admin.akta-ikrar.index')->withSuccess('Berhasil Disimpan!');
+        return redirect()->route('admin.akta-ikrar.index')->withSuccess('Berhasil Disimpan !');
     }
 
     public function show(BerkasWakif $berkasWakif)

@@ -87,7 +87,7 @@ class WakifController extends Controller
             'id_desa'                => $request->id_desa
         ]);
 
-        return redirect()->back()->withSuccess('berhasil disimpan!');
+        return redirect()->back()->withSuccess('Berhasil Disimpan !');
     }
 
     public function destroy(Wakif $wakif)

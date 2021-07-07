@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin\DataWakaf;
 use App\BerkasWakif;
 use App\DesStatusBerkas;
 use App\Http\Controllers\Controller;
+use App\Notifications\SendAfterIkrarMessage;
+use App\Notifications\SendIkrarDate;
+use App\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -64,13 +67,16 @@ class IkrarController extends Controller
                 'time_tgl_ikrar' => ['required', 'date_format:H:i']
             ]);
 
+            $dateTimeF = date('Y-m-d H:i:s', strtotime("$request->date_tgl_ikrar $request->time_tgl_ikrar"));
+
             // ARRAY UNTUK SIMPAN TANGGAL STATUS
-            $desStatus = ['tgl_ikrar' => date('Y-m-d H:i:s', strtotime("$request->date_tgl_ikrar $request->time_tgl_ikrar"))];
+            $desStatus = ['tgl_ikrar' => $dateTimeF];
             $desStatusBerkas->update($desStatus);
 
-            // HARUSNYA SEND EMAIL
+            // SEND EMAIL
+            User::find($berkasWakif->wakif->id_user)->notify(new SendIkrarDate($berkasWakif, $dateTimeF));
 
-            return redirect()->back()->withSuccess('Berhasil Disimpan!');
+            return redirect()->back()->withSuccess('Berhasil Disimpan !');
         }
 
         // VALIDASI FORM
@@ -85,8 +91,9 @@ class IkrarController extends Controller
         $berkasWakif->update($request->all());
         $desStatusBerkas->update($desStatus);
 
-        // HARUSNYA SEND EMAIL
+        // SEND EMAIL
+        User::find($berkasWakif->wakif->id_user)->notify(new SendAfterIkrarMessage($berkasWakif, $request->pesan));
 
-        return redirect()->route('admin.akta-ikrar.index')->withSuccess('Berhasil Disimpan!');
+        return redirect()->route('admin.akta-ikrar.index')->withSuccess('Berhasil Disimpan !');
     }
 }

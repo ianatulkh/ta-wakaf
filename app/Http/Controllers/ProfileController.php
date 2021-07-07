@@ -33,7 +33,7 @@ class ProfileController extends Controller
             ]);
             $user->wakif->update($request->all());
         }
-        return redirect()->back()->withSuccess('berhasil disimpan!');
+        return redirect()->back()->withSuccess('Berhasil Disimpan !');
     }
 
     public function show()

@@ -5,7 +5,8 @@
 @section('title', 'Detail Permintaan Pengajuan')
 
 @section('content_header')
-<h1>Detail Permintaan Pengajuan Wakaf</h1>
+<h1 class="float-left">Detail Permintaan Pengajuan Wakaf</h1>
+<a href="{{ route('admin.berkas-wakif.edit', $berkasWakif->id) }}" class="ml-3 btn btn-primary">Edit Data Tanah Wakaf</a>
 @stop
 
 @section('content')

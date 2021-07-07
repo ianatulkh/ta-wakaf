@@ -17,15 +17,15 @@
                     <h3>Sebelum anda mendaftar, anda harus menyiapkan berkas sebagai berikut: <br> <br></h3>
 
                     <strong>Berkas Digital (scan)</strong> <br>
-                    1.    SPPT / Pajak Tanah Terakhir <br>
-                    2.    Sertifikat Tanah / Blangko Konversi dari BPN atau Warkah (jika belum punya sertifikat)<br>
-                    3.    Surat Keterangan tanah tidak Sengketa dari kepala desa<br> 
-                    4.    Menyiapkan data 5 Nadzir beserta Foto KTP<br><br>
+                    1.    Sertifikat Tanah / Blangko Konversi dari BPN atau Warkah (jika belum punya sertifikat) <span class="text-danger">Sertifikat discan dan dijadikan satu dalam file PDF</span> <br>
+                    2.    Surat Keterangan tanah tidak Sengketa dari kepala desa <span class="text-danger">Berkas di scan dan hasilnya berupa file jpg/jpeg/png</span><br> 
+                    3.    SPPT / Pajak Tanah Terakhir <span class="text-danger">Berkas di scan dan hasilnya berupa file jpg/jpeg/png</span><br>
+                    4.    Menyiapkan data Wakif Foto KTP<br><br>
 
                     <strong>Berkas Fisik</strong> <br>
                     5.    Materai 6000 sebanyak 6 lembar <br>
                     6.    Fotocopy KTP Wakif 3 Lembar Dilegalisir Desa <br>
-                    7.    Fotocopy KTP 5 orang nadzir (perorangan) masing-masing 3 lembar dilegalisir desa <br>
+                    7.    Fotocopy KTP 5 orang nadzir (perorangan) dan 2 saksi masing-masing 3 lembar dilegalisir desa <br>
                           Stempel Badan Hukum dan dilampiri Akte Pendirian (Jika Yayasan) <br>
                 </p>
 
@@ -71,7 +71,7 @@
                                     <td width="30" valign="top" style="font-size: 16px">3</td>
                                     <td style="font-size: 16px">
                                         <strong>Survei Tempat</strong> <br>
-                                        Saat setelah data selesai dicek dan valid datanya, dilakukannya survey ke lokasi tempat wakaf, anda akan diberitahukan oleh petugas mengenai jadwal survei, dalam survey wakif harus bertemu dengan wakif dan harus membawa <strong>Berkas Fisik</strong> yang telah disebutkan diatas
+                                        Saat setelah data selesai dicek dan valid datanya, dilakukannya survey ke lokasi tempat wakaf, anda akan diberitahukan oleh petugas mengenai jadwal survei, dalam survey wakif harus bertemu dengan petugas KUA yang bertugas untuk melakukan survey di lokasi tempat tanah wakaf berada, sesuai dengan jadwal survey
                                         <br>
                                     </td>
                                 </tr>
@@ -79,7 +79,7 @@
                                     <td width="30" valign="top" style="font-size: 16px">3</td>
                                     <td style="font-size: 16px">
                                         <strong>Pelaksanaan Ikrar</strong> <br>
-                                        Setelah survey selesai anda harus menunggu jadwal ikrar yang akan diberitahukan oleh petugas KUA, dan melakukan ikrar wakaf sesuai jadwal<br>
+                                        Setelah survey selesai anda harus menunggu jadwal ikrar yang akan diberitahukan oleh petugas KUA, dan melakukan ikrar wakaf sesuai jadwal di KUA Pulosari dan harus membawa <strong>Berkas Fisik</strong> yang telah disebutkan diatas<br>
                                     </td>
                                 </tr>
                                 <tr>

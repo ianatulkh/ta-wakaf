@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\BerkasWakif;
 use App\DesStatusBerkas;
 use App\Http\Controllers\Controller;
+use App\Notifications\SendReviewDataAcc;
+use App\Notifications\SendReviewDataUnacc;
+use App\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -44,7 +47,7 @@ class SetujuiWakafController extends Controller
             'id_status' => ['required', 'digits:1'],
             'pesan' => ['required', 'min:10']
         ]);
-
+        
         // ARRAY UNTUK SIMPAN KETERANGAN STATUS
         $desStatus = ['id_berkas_wakif' => $berkasWakif->id];
         $desStatus += ($request->id_status == 5) 
@@ -55,9 +58,13 @@ class SetujuiWakafController extends Controller
         DesStatusBerkas::create($desStatus);
 
         if($request->id_status == 5){
+            // SEND EMAIL
+            User::find($berkasWakif->wakif->id_user)->notify(new SendReviewDataUnacc($berkasWakif, $request->pesan));
             return redirect()->route('admin.tolak-wakaf.index')->withSuccess('Berhasil Menolak Pengajuan!');    
         }
 
+        // SEND EMAIL
+        User::find($berkasWakif->wakif->id_user)->notify(new SendReviewDataAcc($berkasWakif, $request->pesan));
         return redirect()->route('admin.survey.index')->withSuccess('Berhasil Menyetujui Pengajuan!');
     }
 }

@@ -71,7 +71,7 @@ class SaksiController extends Controller
             'ktp'                    => $this->uploadFileDisk($request, 'public', 'ktp', 'berkas/ktp_saksi/')
         ]);
 
-        return redirect()->route('admin.data-saksi.index')->withSuccess('berhasil disimpan!');
+        return redirect()->route('admin.data-saksi.index')->withSuccess('Berhasil Disimpan !');
     }
 
     public function show(Saksi $saksi)
@@ -106,7 +106,7 @@ class SaksiController extends Controller
 
         $saksi->update((array) $newRequest);
 
-        return redirect()->back()->withSuccess('berhasil disimpan!');
+        return redirect()->back()->withSuccess('Berhasil Disimpan !');
     }
 
     public function destroy(Saksi $saksi)

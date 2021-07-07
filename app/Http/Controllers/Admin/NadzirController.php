@@ -71,7 +71,7 @@ class NadzirController extends Controller
             'ktp'                    => $this->uploadFileDisk($request, 'public', 'ktp', 'berkas/ktp_nadzir/')
         ]);
 
-        return redirect()->route('admin.data-nadzir.index')->withSuccess('berhasil disimpan!');
+        return redirect()->route('admin.data-nadzir.index')->withSuccess('Berhasil Disimpan !');
     }
 
     public function show(Nadzir $nadzir)
@@ -106,7 +106,7 @@ class NadzirController extends Controller
 
         $nadzir->update((array) $newRequest);
 
-        return redirect()->back()->withSuccess('berhasil disimpan!');
+        return redirect()->back()->withSuccess('Berhasil Disimpan !');
     }
 
     public function destroy(Nadzir $nadzir)

@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Admin\DataWakaf;
 use App\BerkasWakif;
 use App\DesStatusBerkas;
 use App\Http\Controllers\Controller;
+use App\Notifications\SendAfterSurveyMessage;
+use App\Notifications\SendSurveyDate;
+use App\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -64,13 +67,16 @@ class SurveyController extends Controller
                 'time_tgl_survey' => ['required', 'date_format:H:i']
             ]);
 
+            $dateTimeF = date('Y-m-d H:i:s', strtotime("$request->date_tgl_survey $request->time_tgl_survey"));
+
             // ARRAY UNTUK SIMPAN TANGGAL STATUS
-            $desStatus = ['tgl_survey' => date('Y-m-d H:i:s', strtotime("$request->date_tgl_survey $request->time_tgl_survey"))];
+            $desStatus = ['tgl_survey' => $dateTimeF];
             $desStatusBerkas->update($desStatus);
 
-            // HARUSNYA SEND EMAIL
+            // SEND EMAIL
+            User::find($berkasWakif->wakif->id_user)->notify(new SendSurveyDate($berkasWakif, $dateTimeF));
 
-            return redirect()->back()->withSuccess('Berhasil Disimpan!');
+            return redirect()->back()->withSuccess('Berhasil Disimpan !');
         }
 
         // VALIDASI FORM
@@ -85,8 +91,9 @@ class SurveyController extends Controller
         $berkasWakif->update($request->all());
         $desStatusBerkas->update($desStatus);
 
-        // HARUSNYA SEND EMAIL
+        // SEND EMAIL
+        User::find($berkasWakif->wakif->id_user)->notify(new SendAfterSurveyMessage($berkasWakif, $request->pesan));
 
-        return redirect()->route('admin.ikrar.index')->withSuccess('Berhasil Disimpan!');
+        return redirect()->route('admin.ikrar.index')->withSuccess('Berhasil Disimpan !');
     }
 }

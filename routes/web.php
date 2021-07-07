@@ -47,6 +47,7 @@ function(){
     Route::get('/', [HomeAdminController::class, 'index'])
          ->name('home');    
 
+    // RUTE UNTUK MENU TERKAIT DATA UTAMA
     Route::resource('data-wakif', Admin\WakifController::class)
          ->parameter('data-wakif', 'wakif');
 
@@ -88,7 +89,7 @@ function(){
          ->parameter('cetak-akta-ikrar', 'aktaIkrar')
          ->only('store', 'update');
 
-     // CETAK DOKUMEN AKTA IKRAR
+     // TEMPELATE BLANGKO AKTA IKRAR CETAK DOKUMEN AKTA IKRAR
      Route::get('cetak-akta-ikrar-wt1/{berkasWakif}', [CetakAktaIkrarController::class, 'cetak_wt1'])
          ->name('cetakWt1');
      
@@ -116,7 +117,7 @@ function(){
      // DETAIL BERKAS WAKIF UNTUK SEMUA
      Route::resource('berkas-wakif', Admin\BerkasWakifController::class)
          ->parameter('berkas-wakif', 'berkasWakif')
-         ->only('show');
+         ->only('show', 'edit', 'update');
 });
 
 // BAGIAN KONTROL HAK AKSES, SEBAGAI WAKIF (YG MENDAFTAR)

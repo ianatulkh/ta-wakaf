@@ -133,7 +133,7 @@
                             {{-- Name field --}}
                             <div class="form-group">
                                 <label for="name">Nama</label>
-                                <input id="name" type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                <input id="name" type="text" name="name" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" readonly
                                     value="{{ old('name') ?? $user->name }}" placeholder="{{ __('adminlte::adminlte.full_name') }}" autofocus>
                                 @if($errors->has('name'))
                                     <div class="invalid-feedback">
@@ -145,7 +145,7 @@
                             {{-- NIK field --}}
                             <div class="form-group">
                                 <label for="nik">NIK</label>
-                                <input id="nik" type="number" name="nik" class="form-control {{ $errors->has('nik') ? 'is-invalid' : '' }}"
+                                <input id="nik" type="number" name="nik" class="form-control {{ $errors->has('nik') ? 'is-invalid' : '' }}" readonly
                                     value="{{ old('nik') ?? $user->wakif->nik }}" placeholder="NIK" autofocus>
                                 @if($errors->has('nik'))
                                     <div class="invalid-feedback">
@@ -158,7 +158,7 @@
                                 {{-- Tempat Lahir field --}}
                                 <div class="form-group col-md-6">
                                     <label for="tempat_lahir">Tempat Lahir</label>
-                                    <input id="tempat_lahir" type="text" name="tempat_lahir" class="form-control {{ $errors->has('tempat_lahir') ? 'is-invalid' : '' }}"
+                                    <input id="tempat_lahir" type="text" name="tempat_lahir" class="form-control {{ $errors->has('tempat_lahir') ? 'is-invalid' : '' }}" readonly
                                     value="{{ old('tempat_lahir') ?? $user->wakif->tempat_lahir }}" placeholder="Tempat Lahir" autofocus>
                                     @if($errors->has('tempat_lahir'))
                                         <div class="invalid-feedback">
@@ -170,7 +170,7 @@
                                 {{-- Tanggal Lahir field --}}
                                 <div class="form-group col-md-6">
                                     <label for="tanggal_lahir">Tanggal Lahir</label>
-                                    <input id="tanggal_lahir" type="date" name="tanggal_lahir" class="form-control {{ $errors->has('tanggal_lahir') ? 'is-invalid' : '' }}"
+                                    <input id="tanggal_lahir" type="date" name="tanggal_lahir" class="form-control {{ $errors->has('tanggal_lahir') ? 'is-invalid' : '' }}" readonly
                                     value="{{ old('tanggal_lahir') ?? $user->wakif->tanggal_lahir }}" placeholder="Tanggal Lahir" autofocus>
                                     @if($errors->has('tanggal_lahir'))
                                         <div class="invalid-feedback">
@@ -185,11 +185,12 @@
                                 {{-- Agama field --}}
                                 <div class="form-group col-md-6">
                                     <label for="id_agama">Agama</label>
-                                    <select name="id_agama" class="form-control {{ $errors->has('id_agama') ? 'is-invalid' : '' }}" autofocus>
+                                    <select name="id_agama" class="form-control {{ $errors->has('id_agama') ? 'is-invalid' : '' }}" autofocus disabled>
                                         @foreach ($agama as $item)
                                             <option value="{{ $item->id }}" {{ (old('id_agama') ?? $user->wakif->id_agama ?? '') == $item->id ? 'selected':'' }}>{{ $item->agama }}</option>
                                         @endforeach
                                     </select>
+                                    <input type="hidden" name="id_agama" value="{{$user->wakif->id_agama}}">
                                     @if($errors->has('id_agama'))
                                         <div class="invalid-feedback">
                                             <strong>{{ $errors->first('id_agama') }}</strong>
@@ -217,7 +218,7 @@
                             {{-- Pekerjaan field --}}
                             <div class="form-group">
                                 <label for="pekerjaan">Pekerjaan</label>
-                                <input id="pekerjaan" type="text" name="pekerjaan" class="form-control {{ $errors->has('pekerjaan') ? 'is-invalid' : '' }}"
+                                <input id="pekerjaan" type="text" name="pekerjaan" class="form-control {{ $errors->has('pekerjaan') ? 'is-invalid' : '' }}" readonly
                                     value="{{ old('pekerjaan') ?? $user->wakif->pekerjaan }}" placeholder="Pekerjaan" autofocus>
                                 @if($errors->has('pekerjaan'))
                                     <div class="invalid-feedback">
@@ -243,7 +244,7 @@
                                 {{-- RT field --}}
                                 <div class="form-group col-md-6">
                                     <label for="rt">RT</label>
-                                    <input id="rt" type="text" name="rt" class="form-control {{ $errors->has('rt') ? 'is-invalid' : '' }}"
+                                    <input id="rt" type="text" name="rt" class="form-control {{ $errors->has('rt') ? 'is-invalid' : '' }}" readonly
                                         value="{{ old('rt') ?? $user->wakif->rt }}" placeholder="RT" autofocus>
                                     @if($errors->has('rt'))
                                         <div class="invalid-feedback">
@@ -255,7 +256,7 @@
                                 {{-- RW field --}}
                                 <div class="form-group col-md-6">
                                     <label for="rw">RW</label>
-                                    <input id="rw" type="text" name="rw" class="form-control {{ $errors->has('rw') ? 'is-invalid' : '' }}"
+                                    <input id="rw" type="text" name="rw" class="form-control {{ $errors->has('rw') ? 'is-invalid' : '' }}" readonly
                                         value="{{ old('rw') ?? $user->wakif->rw }}" placeholder="RW" autofocus>
                                     @if($errors->has('rw'))
                                         <div class="invalid-feedback">
@@ -268,12 +269,13 @@
                             {{-- Desa field --}}
                             <div class="form-group">
                                 <label for="id_desa">Pilih Desa</label>
-                                <select name="id_desa" class="form-control {{ $errors->has('id_desa') ? 'is-invalid' : '' }}" autofocus>
+                                <select name="id_desa" class="form-control {{ $errors->has('id_desa') ? 'is-invalid' : '' }}" autofocus disabled>
                                     <option selected="true" disabled>Pilih Desa</option>
                                     @foreach ($desa as $item)
                                         <option value="{{ $item->id }}" {{ (old('id_desa') ?? $user->wakif->id_desa ?? '') == $item->id ? 'selected':'' }}>{{ $item->nama }}</option>
                                     @endforeach
                                 </select>
+                                <input type="hidden" name="id_desa" value="{{$user->wakif->id_desa}}">
                                 @if($errors->has('id_desa'))
                                     <div class="invalid-feedback">
                                         <strong>{{ $errors->first('id_desa') }}</strong>

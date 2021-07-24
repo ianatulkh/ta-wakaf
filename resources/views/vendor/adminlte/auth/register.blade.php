@@ -384,12 +384,14 @@
                 dataType : 'json',
                 processData: false,
                 contentType: false,
-                url: 'http://127.0.0.1:5000/api/extract_ktp',
+                // url: 'http://127.0.0.1:5000/api/extract_ktp',
+                url: 'https://ktp-ocr.herokuapp.com/api/extract_ktp',
                 method: "POST",
                 success: function (data) {
                     if(data.success == false){
                         Swal.fire('Kesalahan Validasi', data.message, 'error');
                         resetValidasi();
+                        $('.register-page').css("min-height","940.328px");
                         $('#container-ktp-extract').hide();
                     } else {
                         Swal.fire('Berhasil', 'Berhasil Mengekstrak data KTP!', 'success');
@@ -398,6 +400,7 @@
                         if(valueCheck){
                             Swal.fire('Kesalahan Validasi', valueCheck, 'error');
                             resetValidasi();
+                            $('.register-page').css("min-height","940.328px");
                             $('#container-ktp-extract').hide();
                         } else {
                             $("input[name='name']").val(data.data.NAMA);
@@ -413,6 +416,8 @@
                                     $("input[name='id_desa']").val(this.value);
                                 }
                             });
+
+                            $('.register-page').css("min-height","1800px");
                             $('#container-ktp-extract').show();
                         }
                     }
@@ -422,6 +427,7 @@
                 error: function (data) {
                     Swal.fire('Request Gagal!', 'Ada kesalahan yang tidak diketahui, mohon refresh ulang', 'error');
                     resetValidasi();
+                    $('.register-page').css("min-height","940.328px");
                     $('#container-ktp-extract').hide();
                 },
                 complete: function(data) {

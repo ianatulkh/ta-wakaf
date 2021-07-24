@@ -14,9 +14,8 @@ class ProfileController extends Controller
 {
     public function update(Request $request, User $user)
     {
-        $this->validator($request);
-
         if($request->user == "true"){
+            $this->validator($request, true);
             $new = (object)$request->all();
 
             if($request->password == null){
@@ -28,6 +27,7 @@ class ProfileController extends Controller
             $user->update((array) $new);
 
         } else {
+            $this->validator($request);
             $user->update([
                 'name' => $request->name
             ]);
@@ -46,8 +46,15 @@ class ProfileController extends Controller
         ]);
     }
 
-    protected function validator(Request $request)
+    protected function validator(Request $request, $user = false)
     {
+        if($user){
+            return $this->validate($request, [
+                'email'                  => ['required', 'string', 'email', 'max:255', 'unique:users,email,'.auth()->id()],
+                'password'               => ['nullable', 'string', 'min:8'],
+            ]);
+        }
+
         return $this->validate($request, [
             'nik'                    => ['required', 'numeric', 'digits:16', 'unique:wakif,nik,'.auth()->user()->wakif->id],
             'tempat_lahir'           => ['required', 'string', 'max:35', 'min:3', 'regex:/^[a-zA-ZÑñ\s]+$/'], //text

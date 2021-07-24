@@ -180,6 +180,7 @@ return [
         Yajra\DataTables\DataTablesServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
         Alkoumi\LaravelHijriDate\LaravelHijriDateServiceProvider::class,
+        Orangehill\Iseed\IseedServiceProvider::class,
 
     ],
 

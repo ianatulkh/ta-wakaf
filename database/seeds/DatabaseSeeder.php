@@ -1,5 +1,7 @@
 <?php
 
+use Database\Seeders\NadzirTableSeeder;
+use Database\Seeders\SaksiTableSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +19,9 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(AdminSeeder::class);
         // $this->call(UserSeeder::class);
+        $this->call(WakifSeeder::class);
         $this->call(StatusSeeder::class);
+        $this->call(SaksiTableSeeder::class);
+        $this->call(NadzirTableSeeder::class);
     }
 }

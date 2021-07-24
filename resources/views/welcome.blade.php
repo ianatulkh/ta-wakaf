@@ -7,7 +7,7 @@
        <div class="row d_flex">
           <div class="col-md-5">
              <div class="text-bg">
-                <h1>Aplikasi<br>Wakaf Online</h1>
+                <h1>Aplikasi<br>Pengelolaan Wakaf</h1>
                 <span>Kecamatan Pulosari</span>
                 <p>Tidak perlu ke mana mana, tidak perlu menunggu antri untuk giliran dilayani, cukup isi data identitas, ikuti alur, dan upload berkas sesuai dengan persyaratan tata cara pendaftaran wakaf, pengajuan wakaf anda akan segera diproses</p>
                 <a href="{{ route('register') }}">Daftar Sekarang</a>
